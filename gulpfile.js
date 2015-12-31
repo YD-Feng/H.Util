@@ -2,9 +2,6 @@ var jsList = ['Util', 'Dialog', 'Jquery-ui'],
     cssList = ['Jquery-ui', 'H-ui', 'Pager', 'Dialog'],
 
     gulp = require('gulp'),
-    gulpif = require('gulp-if'),
-    gulpignore = require('gulp-ignore'),
-    gulpwatch = require('gulp-watch'),
 
     copy = require('gulp-copy'),
     rename = require('gulp-rename'),
