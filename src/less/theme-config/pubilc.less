@@ -1,0 +1,72 @@
+@font-family: "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", "\5b8b\4f53", Arial, tohoma, sans-serif;
+
+//表单相关
+@form-el-border-color: #e2e2e2;
+@form-el-background-color: #ffffff;
+@form-el-font-color: #333333;
+@form-el-border-radius: 0;
+
+@form-el-border-color-focus: #cccccc;
+@form-el-background-color-focus: #ffffff;
+@form-el-font-color-focus: #333333;
+
+@form-el-border-color-disabled: #e2e2e2;
+@form-el-background-color-disabled: #ecebeb;
+@form-el-font-color-disabled: #bbbbbb;
+
+//分页相关
+@pager-border-color: #e2e2e2;
+@pager-background-color: #ffffff;
+@pager-font-color: #333333;
+@pager-border-radius: 0;
+
+@pager-border-color-hover: #3388ff;
+@pager-background-color-hover: #fffeff;
+@pager-font-color-hover: #3333ff;
+
+@pager-border-color-active: #3366ff;
+@pager-background-color-active: #3388ff;
+@pager-font-color-active: #fffeff;
+
+@pager-border-color-cant: #e2e2e2;
+@pager-background-color-cant: #ffffff;
+@pager-font-color-cant: #e2e2e2;
+
+.create-color-btn (@color-name, @font-color, @background-color, @border-color, @hover-change: 1.1, @active-change: 0.9) {
+    .ui-btn-@{color-name} {
+        background: @background-color;
+        border: 1px solid @border-color;
+        color: @font-color;
+    }
+    .ui-btn-@{color-name}:hover {
+        background: @background-color * @hover-change;
+        border-color: @border-color * @hover-change;
+    }
+    .ui-btn-@{color-name}:active {
+        background: @background-color * @active-change;
+        border-color: @border-color * @active-change;
+    }
+}
+
+//日期选择器相关
+@dp-main-bgc: #ffffff;
+@dp-head-bgc: #f8f8f8;
+@dp-font-color-default: #1f1f1f;
+@dp-border-color: #bbbbbb;
+
+@dp-btn-border-color-default: #aaaaaa;
+@dp-btn-bgc-default: #f8f8f8;
+@dp-font-color-default: #1f1f1f;
+
+@dp-btn-border-color-hover: #999999;
+@dp-btn-bgc-hover: #aaaaaa;
+@dp-font-color-hover: #ffffff;
+
+@dp-btn-border-color-cur: #4bd0ff;
+@dp-btn-bgc-cur: #d8f5ff;
+@dp-font-color-cur: #1f1f1f;
+
+@dp-btn-border-color-today: #ff8648;
+@dp-btn-bgc-today: #ffeee6;
+@dp-font-color-today: #1f1f1f;
+

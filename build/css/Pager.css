@@ -1,0 +1,64 @@
+.ui-pager {
+  display: inline-block;
+  font-size: 0;
+}
+.ui-pager a {
+  border: 1px solid #e2e2e2;
+  background-color: #ffffff;
+  color: #333333;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 28px;
+  margin: 0 3px;
+  padding: 0 10px;
+  -moz-user-select: none;
+  /*火狐*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -ms-user-select: none;
+  /*IE10*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  user-select: none;
+}
+.ui-pager a:hover {
+  border-color: #3388ff;
+  background-color: #fffeff;
+  color: #3333ff;
+  text-decoration: none;
+}
+.ui-pager .ui-pager-can {
+  border-color: #e2e2e2;
+  background-color: #ffffff;
+  color: #333333;
+}
+.ui-pager .ui-pager-active,
+.ui-pager .ui-pager-active:hover {
+  border-color: #3366ff;
+  background-color: #3388ff;
+  color: #fffeff;
+  cursor: default;
+}
+.ui-pager .ui-pager-cant,
+.ui-pager .ui-pager-cant:hover {
+  border-color: #e2e2e2;
+  background-color: #ffffff;
+  color: #e2e2e2;
+  cursor: default;
+}
+.ui-pager .ui-pager-dot {
+  border: none;
+  padding: 1px 11px;
+}
+.ui-pager .ui-pager-txt {
+  display: inline-block;
+  margin: 0 3px;
+  padding: 0 10px;
+  line-height: 28px;
+  font-size: 14px;
+}
+.ui-pager .ui-pager-txt em {
+  color: #3366ff;
+}
