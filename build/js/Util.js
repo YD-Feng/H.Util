@@ -152,8 +152,10 @@ ItvEvents.prototype.addEvent = function ($el, eventType, eventName, fn, itvTime)
     _this.lastTriggerTime[eventName] = +new Date();
     _this.timeOut[eventName] = null;
 
-    $el.on(eventType + '.' + eventName, function () {
-        _this.itvTrigger(eventName, fn, itvTime, this);
+    $el.on(eventType + '.' + eventName, function (e) {
+        _this.itvTrigger(eventName, function () {
+            fn(e);
+        }, itvTime, this);
     });
 };
 
@@ -195,6 +197,7 @@ ItvEvents.prototype.itvTrigger = function (eventName, fn, itvTime, fnContextObj)
 };
 
 module.exports = ItvEvents;
+
 },{}],5:[function(require,module,exports){
 'use strict';
 /* === Class JsLoader begin === */
