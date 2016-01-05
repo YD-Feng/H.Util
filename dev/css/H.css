@@ -1528,11 +1528,11 @@ textarea.ui-text-small {
   padding: 0.28em 0.5em 0.28em 0.5em;
   /* for ie9+ */
 }
-.ui-input-icon {
+.ui-text-icon {
   display: inline-block;
   position: relative;
 }
-.ui-input-icon .icon {
+.ui-text-icon .icon {
   width: 18px;
   height: 18px;
   line-height: 18px;
@@ -1549,30 +1549,30 @@ textarea.ui-text-small {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.ui-input-icon-l input,
-.ui-input-icon-l input.ui-text-small {
+.ui-text-icon-l input,
+.ui-text-icon-l input.ui-text-small {
   padding-left: 1.643em;
 }
-.ui-input-icon-l input.ui-text-large {
+.ui-text-icon-l input.ui-text-large {
   padding-left: 1.5em;
 }
-.ui-input-icon-l .icon {
+.ui-text-icon-l .icon {
   left: 5px;
 }
-:root .ui-input-icon-l input.ui-text-small {
+:root .ui-text-icon-l input.ui-text-small {
   padding-left: 1.643em;
 }
-.ui-input-icon-r input,
-.ui-input-icon-r input.ui-text-small {
+.ui-text-icon-r input,
+.ui-text-icon-r input.ui-text-small {
   padding-right: 1.643em;
 }
-.ui-input-icon-r input.ui-text-large {
+.ui-text-icon-r input.ui-text-large {
   padding-right: 1.5em;
 }
-.ui-input-icon-r .icon {
+.ui-text-icon-r .icon {
   right: 5px;
 }
-:root .ui-input-icon-r input.ui-text-small {
+:root .ui-text-icon-r input.ui-text-small {
   padding-right: 1.643em;
 }
 /* 单选框 & 复选框 */
