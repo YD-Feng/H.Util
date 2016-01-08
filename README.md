@@ -2,8 +2,6 @@
 <br />
 
 #H.UI
-<br />
-
 H.UI 是集各家所长所诞生出来的产物<br />
 融合了 bootstrap、VUI（出自唯品会）、Jquery-UI、以及 H.UI 本身的原创成分<br />
 它本着解决最基础的问题而生，因此它的功能简单且专注<br />
@@ -14,8 +12,6 @@ H.UI 是集各家所长所诞生出来的产物<br />
 <br /><br /><br />
 
 #H.Util
-<br />
-
 H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<br />
 由于各个工具之间存在着相互依赖关系，所以就做成了一个工具集的形式<br />
 即便包含了很多小工具，它的大小依然只有40多K，而且还是未压缩状态<br />
@@ -428,8 +424,6 @@ now.format('yyyy-MM-dd');
 
 
 #H.dialog
-<br />
-
 原版官方文档：[http://aui.github.io/artDialog/doc/index.html](http://aui.github.io/artDialog/doc/index.html)
 如果例子中的属性配置不能满足需要，可参考原版官方文档
 
