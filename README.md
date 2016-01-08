@@ -532,15 +532,22 @@ dialog 初始化时可以传入一个对象，对象的属性就是配置项，�
 【高级选项】关闭窗口时，是否销毁 dom，默认为 true。当设置为 false 时，quickClose 配置属性会强制设为 false （因为 quickClose 触发的关闭弹窗会把 dom 销毁）
 <br /><br />
 
-<br /><br />
 #基于 H.dialog 的其他方法
 以下的几个方法，是根据功能需求对 H.dialog 的再封装。
 下面一一列出这些方法的调用实例，以及参数说明：
 
 ###H.alert（信息提示弹框）
 ```
-//此方法只有一个参数，提示信息内容【String】
-H.alert('我是一个信息提示框...');
+/*
+* 参数说明：
+* H.alert(msg, [timeout], [callback]);
+* msg —— 提示语内容
+* timeout —— 提示框的存在时间
+* callback —— 提示框关闭后的回调函数
+* */
+H.alert('一堆提示语', 1000, function () {
+    console.info(1);
+});
 ```
 
 ###H.confirm（确认信息弹框）
