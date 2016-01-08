@@ -4513,18 +4513,12 @@ H.dialog = function (opts) {
                 var _this = this;
                 onremoveFunc && onremoveFunc();
                 $(document).off('click.dialogClose' + _this.id);
-                if (typeof opts.redirectTo != 'undefined') {
-                    location.href = opts.redirectTo;
-                }
             };
         } else {
             opts.onclose = function () {
                 var _this = this;
                 oncloseFunc && oncloseFunc();
                 $(document).off('click.dialogClose' + _this.id);
-                if (typeof opts.redirectTo != 'undefined') {
-                    location.href = opts.redirectTo;
-                }
             };
         }
 
@@ -4547,16 +4541,10 @@ H.dialog = function (opts) {
         if (opts.removeFlag) {
             opts.onremove = function () {
                 onremoveFunc && onremoveFunc();
-                if (typeof opts.redirectTo != 'undefined') {
-                    location.href = opts.redirectTo;
-                }
             };
         } else {
             opts.onclose = function () {
                 oncloseFunc && oncloseFunc();
-                if (typeof opts.redirectTo != 'undefined') {
-                    location.href = opts.redirectTo;
-                }
             };
         }
     }
@@ -4592,18 +4580,20 @@ H.dialog = function (opts) {
     return d;
 };
 
-H.alert = function (msg, redirectTo, timeout) {
+H.alert = function (msg, timeout, callback) {
     var opts = {
         title: '提示',
         content: msg,
-        timeout: typeof timeout == 'undefined' ? 2000 : timeout,
+        timeout: typeof arguments[1] != 'number' ? 2000 : arguments[1],
         quickClose: true,
         backdropOpacity: 0,
         width: 300
     };
 
-    if (typeof redirectTo != 'undefined') {
-        opts.redirectTo = redirectTo;
+    if (typeof arguments[1] == 'function') {
+        opts.onremove = arguments[1];
+    } else if (typeof arguments[2] == 'function') {
+        opts.onremove = arguments[2];
     }
 
     H.dialog(opts).show();

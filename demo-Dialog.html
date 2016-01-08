@@ -147,7 +147,6 @@
             width: 400,//弹窗宽度(缺省时为自适应，但默认最大宽度为1000)
             height: 200,//弹窗高度(缺省时为自适应，但默认最大高度为600)
             backdropOpacity: 0.7,//遮罩层透明度(默认0.7)
-            redirectTo: 'http://www.baidu.com',//弹窗关闭后重定向地址
             onshow: function(){
                 //alert('弹窗弹出后执行的回调');
             },
@@ -195,8 +194,16 @@
     });
 
     $('#J-button-demo04').on('click', function(){
-        //参数说明：提示内容， 跳转地址（可缺省，弹窗关闭后跳转）， 弹窗自动关闭延迟时间（可缺省，默认3秒）
-        H.alert('一堆提示语', 'http://www.baidu.com', 1000);
+        /*
+        * 参数说明：
+        * H.alert(msg, [timeout], [callback]);
+        * msg —— 提示语内容
+        * timeout —— 提示框的存在时间
+        * callback —— 提示框关闭后的回调函数
+        * */
+        H.alert('一堆提示语', 1000, function () {
+            console.info(1);
+        });
     });
 
 
