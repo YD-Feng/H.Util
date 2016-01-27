@@ -38,6 +38,8 @@ js脚本异步加载器，可以异步加载脚本，防止 DOM 加载阻塞，�
 获取字符串的字符长度方法（一个汉字为2字符长度）<br /><br />
 * **[SubStrByCode](#SubStrByCode)**<br />
 根据字符长度截字方法，由于汉字和英文数字的字符长度不同，按字数截字的效果往往无法满足有追求的工程师，此方法应运而生<br /><br />
+* **[TransformParamsToJSON](#TransformParamsToJSON)**<br />
+将序列化得到的参数字符串转换为JSON对象，常用于地址栏参数和表单序列化参数的处理<br /><br />
 * **[DateFormat](#DateFormat)**<br />
 日期格式化方法，用于将日期转换成各种不同的显示格式<br />
 <br />
