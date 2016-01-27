@@ -1818,6 +1818,33 @@ module.exports = tooltips;
 
 },{"../Template/Template":13}],15:[function(require,module,exports){
 'use strict';
+/*
+ * 参数说明：
+ * paramsStr 【String】 参数字符串
+ * 注意：paramsStr 的格式必须为 "?orderId=44412000008&srcOrderId=123456789001&operationType=edit&orderType=30" 这样的格式。前面的 ? 可有可无，可以只有参数名，没有参数值
+ * */
+var transformParamsToJSON = function (paramsStr) {
+    var paramGroup = [],
+        paramPair = [],
+        paramsJSON = {};
+
+    if (paramsStr != '') {
+        paramsStr = paramsStr.replace('?', '');
+        paramGroup = paramsStr.split('&');
+
+        for (var i = 0, len = paramGroup.length; i < len; i++) {
+            paramPair = paramGroup[i].split('=');
+            paramsJSON[paramPair[0]] = paramPair[1];
+        }
+    }
+
+    return paramsJSON;
+};
+
+module.exports = transformParamsToJSON;
+
+},{}],16:[function(require,module,exports){
+'use strict';
 module.exports = function ($) {
     //修复 IE8 以下不支持 indexOf 导致产生错误的 bug
     if (!Array.indexOf) {
@@ -2943,7 +2970,7 @@ module.exports = function ($) {
     * */
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     // 验证规则
@@ -3124,7 +3151,7 @@ module.exports = function ($) {
     $.validationEngineLanguage.newLang();
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 (function(window, $){
     //实例
@@ -3143,6 +3170,7 @@ module.exports = function ($) {
     var Template = require('./Util_modules/Template/Template');
     var GetStrCodeLength = require('./Util_modules/GetStrCodeLength/GetStrCodeLength');
     var SubStrByCode = require('./Util_modules/SubStrByCode/SubStrByCode');
+    var TransformParamsToJSON = require('./Util_modules/TransformParamsToJSON/TransformParamsToJSON');
 
     //原生对象方法扩展
     var DateFormat = require('./Util_modules/DateFormat/DateFormat');
@@ -3180,6 +3208,7 @@ module.exports = function ($) {
     H.template = Template;
     H.getStrCodeLength = GetStrCodeLength;
     H.subStrByCode = SubStrByCode;
+    H.transformParamsToJSON = TransformParamsToJSON;
 
     //原生对象方法扩展
     DateFormat();
@@ -3190,7 +3219,7 @@ module.exports = function ($) {
 
 })(window, jQuery);
 
-},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/Monitor/Monitor":8,"./Util_modules/Pager/Pager":9,"./Util_modules/Storage/Storage":10,"./Util_modules/SubStrByCode/SubStrByCode":11,"./Util_modules/Switchable/Switchable":12,"./Util_modules/Template/Template":13,"./Util_modules/Tooltips/Tooltips":14,"./Util_modules/ValidationEngine/ValidationEngine":15,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":16}]},{},[17])
+},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/Monitor/Monitor":8,"./Util_modules/Pager/Pager":9,"./Util_modules/Storage/Storage":10,"./Util_modules/SubStrByCode/SubStrByCode":11,"./Util_modules/Switchable/Switchable":12,"./Util_modules/Template/Template":13,"./Util_modules/Tooltips/Tooltips":14,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":15,"./Util_modules/ValidationEngine/ValidationEngine":16,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":17}]},{},[18])
 /*! artDialog v6.0.5 | https://github.com/aui/artDialog */
 !(function () {
 

@@ -395,6 +395,23 @@ H.subStrByCode('超长的东东1律kaca掉~~~超长的东东1律kaca掉~~~', 20)
 
 <br />
 
+#<a name="TransformParamsToJSON"></a>H.transformParamsToJSON
+H.transformParamsToJSON 本身就是一个静态方法：<br />
+<br /><br />
+下面是调用实例，注释是参数说明：
+```
+/*
+ * H.transformParamsToJSON(paramsStr)
+ * 参数说明：
+ * paramsStr 【String】 参数字符串
+ * 注意：paramsStr 的格式必须为 "?orderId=44412000008&srcOrderId=123456789001&operationType=edit&orderType=30" 这样的格式。前面的 ? 可有可无，可以只有参数名，没有参数值
+ * */
+
+H.transformParamsToJSON('?orderId=AD160115144412000008&srcOrderId=src123456789001&operationType=edit&orderType=30')
+```
+
+<br />
+
 #<a name="DateFormat"></a>DateObj.format
 DateObj.format 是对 Date 对象的方法扩展：<br />
 <br /><br />

@@ -16,6 +16,7 @@
     var Template = require('./Util_modules/Template/Template');
     var GetStrCodeLength = require('./Util_modules/GetStrCodeLength/GetStrCodeLength');
     var SubStrByCode = require('./Util_modules/SubStrByCode/SubStrByCode');
+    var TransformParamsToJSON = require('./Util_modules/TransformParamsToJSON/TransformParamsToJSON');
 
     //原生对象方法扩展
     var DateFormat = require('./Util_modules/DateFormat/DateFormat');
@@ -53,6 +54,7 @@
     H.template = Template;
     H.getStrCodeLength = GetStrCodeLength;
     H.subStrByCode = SubStrByCode;
+    H.transformParamsToJSON = TransformParamsToJSON;
 
     //原生对象方法扩展
     DateFormat();
