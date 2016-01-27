@@ -2087,9 +2087,9 @@ textarea.ui-text-small {
   user-select: none;
 }
 .ui-pager a:hover {
-  border-color: #3388ff;
+  border-color: #d64635;
   background-color: #fffeff;
-  color: #3333ff;
+  color: #d64635;
   text-decoration: none;
 }
 .ui-pager .ui-pager-can {
@@ -2099,8 +2099,8 @@ textarea.ui-text-small {
 }
 .ui-pager .ui-pager-active,
 .ui-pager .ui-pager-active:hover {
-  border-color: #3366ff;
-  background-color: #3388ff;
+  border-color: #d64635;
+  background-color: #d64635;
   color: #fffeff;
   cursor: default;
 }
@@ -2123,7 +2123,8 @@ textarea.ui-text-small {
   font-size: 14px;
 }
 .ui-pager .ui-pager-txt em {
-  color: #3366ff;
+  color: #d64635;
+  font-style: normal;
 }
 
 /* ui-dialog.css */
