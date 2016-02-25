@@ -7,6 +7,7 @@
     var ItvEvents = require('./Util_modules/ItvEvents/ItvEvents');
     var JsLoader = require('./Util_modules/JsLoader/JsLoader');
     var Tooltips = require('./Util_modules/Tooltips/Tooltips');
+    var Loading = require('./Util_modules/Loading/Loading');
 
     //类
     var Switchable = require('./Util_modules/Switchable/Switchable');
@@ -45,6 +46,7 @@
     H.JsLoader = new JsLoader();
     H.Tooltips = Tooltips;
     H.Cookie = Cookie;
+    H.Loading = Loading;
 
     //类
     H.Switchable = Switchable;
@@ -62,5 +64,18 @@
     //Jquery方法扩展
     ValidationEngine($);
     ValidationEngineLanguage($);
+
+    $.ajaxSetup({
+        beforeSend: function () {
+            if (this.showLoadingMask) {
+                H.Loading.show();
+            }
+        },
+        complete: function () {
+            if (this.showLoadingMask) {
+                H.Loading.hide();
+            }
+        }
+    })
 
 })(window, jQuery);

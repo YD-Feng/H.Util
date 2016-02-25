@@ -301,7 +301,22 @@ JsLoader.prototype._addListen = function (condition, moduleName) {
 
 module.exports = JsLoader;
 
-},{"../Monitor/Monitor":8}],6:[function(require,module,exports){
+},{"../Monitor/Monitor":9}],6:[function(require,module,exports){
+'use strict';
+var Loading = {
+    template: '<div id="J-h-loading" class="ui-loading"></div>',
+    show: function () {
+        var _this = this;
+        $('body').append(_this.template);
+    },
+    hide: function () {
+        $('#J-h-loading').remove();
+    }
+};
+
+module.exports = Loading;
+
+},{}],7:[function(require,module,exports){
 'use strict';
 /* === Class DelayedFunc begin === */
 /*
@@ -339,7 +354,7 @@ DelayedFunc.prototype.checkStatus = function () {
 };
 
 module.exports = DelayedFunc;
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 var DelayedFunc = require('./DelayedFunc');
 
@@ -526,7 +541,7 @@ FuncDepot.prototype.stockPop = function (condition) {
 };
 
 module.exports = FuncDepot;
-},{"./DelayedFunc":6}],8:[function(require,module,exports){
+},{"./DelayedFunc":7}],9:[function(require,module,exports){
 'use strict';
 var FuncDepot = require('./FuncDepot');
 
@@ -606,7 +621,7 @@ Monitor.prototype.unListen = function (condition) {
 };
 
 module.exports = Monitor;
-},{"./FuncDepot":7}],9:[function(require,module,exports){
+},{"./FuncDepot":8}],10:[function(require,module,exports){
 'use strict';
 /* === Class Pager begin === */
 /*
@@ -913,7 +928,7 @@ Pager.prototype.bindEvents = function () {
 
 module.exports = Pager;
 
-},{"../Template/Template":13}],10:[function(require,module,exports){
+},{"../Template/Template":14}],11:[function(require,module,exports){
 'use strict';
 /* === Class Storage begin === */
 var Storage = function () {
@@ -1007,7 +1022,7 @@ Storage.prototype.remove = function (key) {
 };
 
 module.exports = Storage;
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 /*
  * 根据字符长度截字方法
@@ -1076,7 +1091,7 @@ var subStrByCode = function (str, codeLength, flag, EnglishType) {
 
 module.exports = subStrByCode;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 //class Switchable 【依赖于Jquery】
 var Switchable = function (options) {
@@ -1512,7 +1527,7 @@ Switchable.prototype.next = function () {
 
 module.exports = Switchable;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 /*
  * 模板编译方法
@@ -1595,7 +1610,7 @@ var template = function (text, data) {
 
 module.exports = template;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 var tooltips = {};
 
@@ -1816,7 +1831,7 @@ tooltips.hide = function ($target) {
 
 module.exports = tooltips;
 
-},{"../Template/Template":13}],15:[function(require,module,exports){
+},{"../Template/Template":14}],16:[function(require,module,exports){
 'use strict';
 /*
  * 参数说明：
@@ -1843,7 +1858,7 @@ var transformParamsToJSON = function (paramsStr) {
 
 module.exports = transformParamsToJSON;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     //修复 IE8 以下不支持 indexOf 导致产生错误的 bug
@@ -2970,7 +2985,7 @@ module.exports = function ($) {
     * */
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     // 验证规则
@@ -3151,7 +3166,7 @@ module.exports = function ($) {
     $.validationEngineLanguage.newLang();
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 (function(window, $){
     //实例
@@ -3161,6 +3176,7 @@ module.exports = function ($) {
     var ItvEvents = require('./Util_modules/ItvEvents/ItvEvents');
     var JsLoader = require('./Util_modules/JsLoader/JsLoader');
     var Tooltips = require('./Util_modules/Tooltips/Tooltips');
+    var Loading = require('./Util_modules/Loading/Loading');
 
     //类
     var Switchable = require('./Util_modules/Switchable/Switchable');
@@ -3199,6 +3215,7 @@ module.exports = function ($) {
     H.JsLoader = new JsLoader();
     H.Tooltips = Tooltips;
     H.Cookie = Cookie;
+    H.Loading = Loading;
 
     //类
     H.Switchable = Switchable;
@@ -3217,9 +3234,22 @@ module.exports = function ($) {
     ValidationEngine($);
     ValidationEngineLanguage($);
 
+    $.ajaxSetup({
+        beforeSend: function () {
+            if (this.showLoadingMask) {
+                H.Loading.show();
+            }
+        },
+        complete: function () {
+            if (this.showLoadingMask) {
+                H.Loading.hide();
+            }
+        }
+    })
+
 })(window, jQuery);
 
-},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/Monitor/Monitor":8,"./Util_modules/Pager/Pager":9,"./Util_modules/Storage/Storage":10,"./Util_modules/SubStrByCode/SubStrByCode":11,"./Util_modules/Switchable/Switchable":12,"./Util_modules/Template/Template":13,"./Util_modules/Tooltips/Tooltips":14,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":15,"./Util_modules/ValidationEngine/ValidationEngine":16,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":17}]},{},[18])
+},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/Loading/Loading":6,"./Util_modules/Monitor/Monitor":9,"./Util_modules/Pager/Pager":10,"./Util_modules/Storage/Storage":11,"./Util_modules/SubStrByCode/SubStrByCode":12,"./Util_modules/Switchable/Switchable":13,"./Util_modules/Template/Template":14,"./Util_modules/Tooltips/Tooltips":15,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":16,"./Util_modules/ValidationEngine/ValidationEngine":17,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":18}]},{},[19])
 /*! artDialog v6.0.5 | https://github.com/aui/artDialog */
 !(function () {
 

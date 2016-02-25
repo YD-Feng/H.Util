@@ -121,11 +121,17 @@ gulp.task('css:target', function () {
     return stream;
 });
 
-gulp.task('copy:dist', function () {
+gulp.task('copy:dev', function () {
     var stream = gulp.src(['src/img/*'])
         .pipe(copy('dev', {
             prefix : 1
-        }))
+        }));
+
+    return stream;
+});
+
+gulp.task('copy:dist', function () {
+    var stream = gulp.src(['src/img/*'])
         .pipe(copy('dist', {
             prefix : 1
         }));
@@ -145,7 +151,7 @@ gulp.task('watchDo:css', ['less'], function () {
  * 任务：dist 构建
  * */
 gulp.task('dist', ['browserify', 'copy:build', 'less'], function () {
-    gulp.start('script:target', 'css:target', 'copy:dist');
+    gulp.start('script:target', 'css:target', 'copy:dev', 'copy:dist');
 });
 
 gulp.task('watch:js', function () {
