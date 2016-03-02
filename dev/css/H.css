@@ -1214,6 +1214,7 @@ textarea {
   font: inherit;
   margin: 0;
   outline: none;
+  box-sizing: border-box;
 }
 input {
   line-height: normal;
