@@ -15,7 +15,7 @@ var transformParamsToJSON = function (paramsStr) {
 
         for (var i = 0, len = paramGroup.length; i < len; i++) {
             paramPair = paramGroup[i].split('=');
-            paramsJSON[paramPair[0]] = paramPair[1];
+            paramsJSON[decodeURIComponent(paramPair[0])] = decodeURIComponent(paramPair[1]);
         }
     }
 
