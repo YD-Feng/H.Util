@@ -1138,6 +1138,7 @@
   font-size: 14px;
   padding: 0.4em 2.2em 0.4em 0.5em;
   line-height: 1.1;
+  *line-height: 1;
 }
 .ui-slider {
   position: relative;
