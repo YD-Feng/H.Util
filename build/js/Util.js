@@ -38,7 +38,7 @@ var Cookie = {
         var reg = new RegExp('(?:^|;+|\\s+)' + name + '=([^;]*)'),
             m = document.cookie.match(reg);
 
-        return unescape(decodeURIComponent(!m ? null : m[1]));
+        return unescape(decodeURIComponent(!m ? '' : m[1]));
     },
 
     /*
