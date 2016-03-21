@@ -1,16 +1,33 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 var Cookie = {
+    options : {
+        path : '/',    // 路径
+        domain: ''    // 域名
+    },
     /*
      * 参数说明：
      * name 【String】 Cookie名
      * value 【String】 Cookie值
      * time 【Int】 过期时长（单位：毫秒）
+     * domain 【String】 Cookie域
+     * path 【String】 Cookie路径
      * */
-    set: function (name, value, time) {
-        var exp = new Date();
-        exp.setTime(exp.getTime() + time);
-        document.cookie = name + '=' + escape(value) + ';expires=' + exp.toGMTString();
+    set: function (name, value, time, domain, path) {
+        var cookieArr = [],
+            _path = path || this.options.path,
+            _domain = domain || this.options.domain,
+            expire = new Date();
+
+        expire.setTime(expire.getTime() + time);
+
+        cookieArr.push(name + '=' + escape(value) + '; ');
+        cookieArr.push(time ? ('expires=' + expire.toGMTString() + '; ') : '');
+        cookieArr.push('path=' + _path + '; ');
+        cookieArr.push('domain=' + _domain + ';');
+        console.info(cookieArr.join(''));
+        document.cookie = cookieArr.join('');
+        return true;
     },
 
     /*
@@ -18,29 +35,29 @@ var Cookie = {
      * name 【String】 Cookie名
      * */
     get: function (name) {
-        var arr,
-            reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        var reg = new RegExp('(?:^|;+|\\s+)' + name + '=([^;]*)'),
+            m = document.cookie.match(reg);
 
-        if (arr = document.cookie.match(reg)) {
-            return unescape(arr[2]);
-        } else {
-            return null;
-        }
+        return unescape(decodeURIComponent(!m ? null : m[1]));
     },
 
     /*
      * 参数说明：
      * name 【String】 Cookie名
+     * domain 【String】 Cookie域
+     * path 【String】 Cookie路径
      * */
-    remove: function (name) {
-        var exp = new Date(),
-            cookieVal = this.get(name);
+    remove: function (name, domain, path) {
+        var _this = this,
+            cookieArr = [],
+            _path = path || _this.options.path,
+            _domain = domain || _this.options.domain;
 
-        exp.setTime(exp.getTime() - 1);
-
-        if (cookieVal != null) {
-            document.cookie = name + "=" + cookieVal + ";expires=" + exp.toGMTString();
-        }
+        cookieArr.push(name + '=; ');
+        cookieArr.push('expires=Mon, 26 Jul 1997 05:00:00 GMT; ');
+        cookieArr.push('path=' + _path + '; ');
+        cookieArr.push('domain=' + _domain + ';');
+        document.cookie = cookieArr.join('');
     }
 };
 
