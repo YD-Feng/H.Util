@@ -24,7 +24,6 @@ var Cookie = {
         cookieArr.push(time ? ('expires=' + expire.toGMTString() + '; ') : '');
         cookieArr.push('path=' + _path + '; ');
         cookieArr.push('domain=' + _domain + ';');
-        console.info(cookieArr.join(''));
         document.cookie = cookieArr.join('');
         return true;
     },
