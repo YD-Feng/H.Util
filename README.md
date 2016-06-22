@@ -1,4 +1,8 @@
-﻿#H.Util项目中包含了 H.UI、H.Util 和 H.Dialog 三部分<br />
+﻿#H.Util项目中包含了 H.UI、H.Util、LazyLoad、H.Dialog 四部分<br />
+项目最终生产两个主要文件：H.min.css 和 H.min.js，它们是可以定制的，通过修改 gulpfile 里的 cssList 和 jsList 变量，可以控制生成的文件包含哪部分<br />
+这样就可以根据实际项目需要来引入必要的模块<br />
+H.Util 部分也可以细化定制，但这就需要修改根目录下的 src/js/Util.js 文件，来控制引用模块了<br />
+这需要修改者本身有一丢丢 JS 功底，但不需要很高要求，因为这个库本身就是很简而使用，不走高大上路线<br />
 <br />
 
 #H.UI
@@ -14,7 +18,7 @@ H.UI 是集各家所长所诞生出来的产物<br />
 #H.Util
 H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<br />
 由于各个工具之间存在着相互依赖关系，所以就做成了一个工具集的形式<br />
-即便包含了很多小工具，它的大小依然只有40多K，而且还是未压缩状态<br />
+即便包含了很多小工具，它的大小依然只有50多K，而且还是未压缩状态<br />
 所以完全不必担心它会因为包含了很多小工具而变得臃肿<br />
 
 <br />
@@ -509,6 +513,10 @@ ValidationEngine 是一个 jquery 同名插件的轻量化版本，具体使用�
 
 <br /><br /><br />
 
+#LazyLoad
+一个 jquery 插件，官方网站：[http://www.appelsiini.net/projects/lazyload](http://www.appelsiini.net/projects/lazyload)<br />
+
+<br /><br /><br />
 
 #H.dialog
 原版官方文档：[http://aui.github.io/artDialog/doc/index.html](http://aui.github.io/artDialog/doc/index.html)

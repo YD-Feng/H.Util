@@ -78,6 +78,8 @@
                 H.Loading.hide();
             }
         }
-    })
+    });
+
+    H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo 找到');
 
 })(window, jQuery);
