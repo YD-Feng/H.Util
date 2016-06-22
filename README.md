@@ -321,7 +321,7 @@ H.Tooltips 对象包含3个方法：<br />
  * target 【JqueryObject】 必传，需要添加 tooltips 的目标元素
  * content 【String|function】 必传，提示框的内容，如果传入的是 function，则要求该函数必须返回一个字符串
  * side 【string】 提示框展示在目标元素的哪一边（取值范围：'top'， 'bottom'， 'left'， 'right'）
- * contSide 【string】 提示框内容部分展示配置，与 side 配合使用【string】（side 为 left 或 right 时的取值范围：'top'，'bottom'，'middle'; side 为 top 或 bottom 时的取值范围：'left'，'right'，'middle'; 注意，设置此属性后，插件将不会自动判断展示哪一侧）
+ * contSide 【string】 提示框内容部分展示配置，与 side 配合使用（side 为 left 或 right 时的取值范围：'top'，'bottom'，'middle'; side 为 top 或 bottom 时的取值范围：'left'，'right'，'middle'; 注意，设置此属性后，插件将不会自动判断展示哪一侧）
  * theme 【string】 提示框主题（默认值：''， 取值范围：''， 'info'， 'success'， 'warning'， 'error'）
  * position 【Object - Int】 用来调整提示框的位置偏移的一个对象，包含两个属性 top 和 left， top 和 left 的值必须为数字
  * width 【Int】 提示框的宽度（默认值：0， 默认情况下，宽度是自适应的，但是当 content 的内容是纯文本时，请务必设置 tooltips 宽度，否则可能会出现意想不到的意外结果出现）
