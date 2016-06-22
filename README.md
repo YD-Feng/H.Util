@@ -1,4 +1,5 @@
-﻿#H.Util项目中包含了 H.UI、H.Util、LazyLoad、H.Dialog 四部分<br />
+﻿#项目简介<br />
+H.Util项目中包含了 H.UI、H.Util、LazyLoad、H.Dialog 四部分<br />
 项目最终生产两个主要文件：H.min.css 和 H.min.js，它们是可以定制的，通过修改 gulpfile 里的 cssList 和 jsList 变量，可以控制生成的文件包含哪部分<br />
 这样就可以根据实际项目需要来引入必要的模块<br />
 H.Util 部分也可以细化定制，但这就需要修改根目录下的 src/js/Util.js 文件，来控制引用模块了<br />
