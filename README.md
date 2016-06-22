@@ -52,8 +52,6 @@ js脚本异步加载器，可以异步加载脚本，防止 DOM 加载阻塞，�
 滚动轮播广告生成器，横向滚动，纵向滚动，不带缩略图的，带缩略图的，它都支持，就是不支持移动端<br /><br />
 * **[Cookie](#Cookie)**<br />
 封装了 Cookie 的读、写，删操作方法<br /><br />
-* **[LazyLoad](#LazyLoad)**<br />
-用于图片延迟加载，对于电商 B2C 网站做性能优化非常有用<br /><br />
 * **[LazyDom](#LazyDom)**<br />
 商品列表 DOM 延迟加载，对于电商 B2C 网站做性能优化非常有用<br /><br />
 * **[ValidationEngine](#ValidationEngine)**<br />

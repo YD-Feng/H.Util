@@ -24,6 +24,7 @@ var LazyDom = function (opts) {
         method: 'fromToBottom',
         distanceToPageBottom: 200,
         isLazyLoad: true,
+        lazyLoadThreshold: 400,
         allData: [],
         preRender: 0,
         renderCb: $.noop,
@@ -168,8 +169,7 @@ LazyDom.prototype.createDom = function (opts) {
 
     if (options.isLazyLoad && typeof $.fn.lazyload == 'function') {
         $createEl.find('img.lazy').lazyload({
-            threshold: 400,
-            failure_limit: 10
+            threshold: options.lazyLoadThreshold
         });
     }
 };

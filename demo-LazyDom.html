@@ -281,8 +281,9 @@
      * opts 对象的子属性：
      * $target 【Jquery Dom Obj】 必传，绑定延迟加载触发滚动事件的目标对象，默认为 window，通常情况下不需要修改
      * method 【String】 加载方式，默认是 fromToBottom 从下方异步插入 dom 结构，通常情况下不需要修改，传参可选值：fromToTop、fromToBottom
-     * distanceToPageBottom 【Number】 距离页面底部多少距离的时候触发加载，默认是 200。当 method 的 为 fromToBottom 时才生效
+     * distanceToPageBottom 【Number】 距离页面底部多少距离的时候触发加载，默认是 200，当 method 为 fromToBottom 时才生效
      * isLazyLoad 【Boolean】 是否对延迟加载内容的图片做 lazyLoad 处理（前提是已经引入了 lazyLoad 插件，H.Util 默认自带），默认为 true
+     * lazyLoadThreshold 【Integer】 控制图片在它出现可视区域前多少像素时开始加载，当 isLazyLoad 为 true 时生效，默认为400
      * allData 【Array】 延迟加载
      * preRender 【Integer】 预加载的屏数
      * renderCb 【Function】 延迟插入的 dom 结构渲染完成后执行的回调函数
@@ -290,6 +291,7 @@
     var lazyDom = new H.LazyDom({
         distanceToPageBottom: 200,
         isLazyLoad: true,
+        lazyLoadThreshold: 400,
         allData: lazyDomData,
         preRender: 1,
         renderCb: function () {}
