@@ -1,4 +1,4 @@
-﻿#H.Util项目中包含了 H.UI、H.Util 和 H.Dialog 三部分<br />  
+﻿#H.Util项目中包含了 H.UI、H.Util 和 H.Dialog 三部分<br />
 <br />
 
 #H.UI
@@ -42,6 +42,16 @@ js脚本异步加载器，可以异步加载脚本，防止 DOM 加载阻塞，�
 将序列化得到的参数字符串转换为JSON对象，常用于地址栏参数和表单序列化参数的处理<br /><br />
 * **[DateFormat](#DateFormat)**<br />
 日期格式化方法，用于将日期转换成各种不同的显示格式<br />
+* **[Switchable](#Switchable)**<br />
+滚动轮播广告生成器，横向滚动，纵向滚动，不带缩略图的，带缩略图的，它都支持，就是不支持移动端<br />
+* **[Cookie](#Cookie)**<br />
+封装了 Cookie 的读、写，删操作方法<br />
+* **[LazyLoad](#LazyLoad)**<br />
+用于图片延迟加载，对于电商 B2C 网站做性能优化非常有用<br />
+* **[LazyDom](#LazyDom)**<br />
+商品列表 DOM 延迟加载，对于电商 B2C 网站做性能优化非常有用<br />
+* **[ValidationEngine](#ValidationEngine)**<br />
+表单验证引擎，推崇验证错误提示的渲染最大自由化，所以验证错误提示的具体具体实现需要完全有用户自己编写，工具只提供验证不通过的回调。好不好用见仁见智，对于界面要求不高的项目，可能用着会很麻烦，但对于界面有苛刻要求的项目，它的优势会非常明显<br />
 <br />
 
 <br />
@@ -438,6 +448,64 @@ DateObj.format 是对 Date 对象的方法扩展：<br />
 var now = new Date();
 now.format('yyyy-MM-dd');
 ```
+
+<br />
+
+#<a name="Switchable"></a>H.Switchable
+具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
+
+<br />
+
+#<a name="Cookie"></a>H.Cookie
+H.Cookie 对象提供了3个方法：<br />
+**H.Cookie.get、H.Cookie.set、H.Cookie.remove**<br />
+<br /><br />
+下面是3个方法的调用实例，注释是参数说明：
+```
+/*
+ * H.Cookie.get(name);
+ * 参数说明：
+ * name 【String】 Cookie名
+ * */
+
+H.Cookie.get('myCookie');
+```
+
+```
+/*
+ * H.Cookie.set(name, value, time, domain, path);
+ * 参数说明：
+ * name 【String】 Cookie名
+ * value 【String】 Cookie值
+ * time 【Int】 过期时长（单位：毫秒）
+ * domain 【String】 Cookie域，可缺省，默认值为空字符串
+ * path 【String】 Cookie路径，可缺省，默认值为 '/'
+ * */
+
+H.Cookie.set('myCookie', '1', 24 * 60000);
+```
+
+```
+/*
+ * H.Cookie.remove(name, domain, path);
+ * 参数说明：
+ * name 【String】 Cookie名
+ * domain 【String】 Cookie域，可缺省，默认值为空字符串
+ * path 【String】 Cookie路径，可缺省，默认值为 '/'
+ * */
+
+H.Cookie.remove('myCookie');
+```
+
+<br />
+
+#<a name="LazyDom"></a>H.LazyDom
+具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
+
+<br />
+
+#<a name="ValidationEngine"></a>ValidationEngine
+ValidationEngine 是一个 jquery 同名插件的轻量化版本，具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
 
 <br /><br /><br />
 

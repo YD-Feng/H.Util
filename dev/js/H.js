@@ -10,8 +10,8 @@ var Cookie = {
      * name 【String】 Cookie名
      * value 【String】 Cookie值
      * time 【Int】 过期时长（单位：毫秒）
-     * domain 【String】 Cookie域
-     * path 【String】 Cookie路径
+     * domain 【String】 Cookie域，可缺省，默认值为空字符串
+     * path 【String】 Cookie路径，可缺省，默认值为 '/'
      * */
     set: function (name, value, time, domain, path) {
         var cookieArr = [],
@@ -43,8 +43,8 @@ var Cookie = {
     /*
      * 参数说明：
      * name 【String】 Cookie名
-     * domain 【String】 Cookie域
-     * path 【String】 Cookie路径
+     * domain 【String】 Cookie域，可缺省，默认值为空字符串
+     * path 【String】 Cookie路径，可缺省，默认值为 '/'
      * */
     remove: function (name, domain, path) {
         var _this = this,
@@ -317,7 +317,290 @@ JsLoader.prototype._addListen = function (condition, moduleName) {
 
 module.exports = JsLoader;
 
-},{"../Monitor/Monitor":9}],6:[function(require,module,exports){
+},{"../Monitor/Monitor":10}],6:[function(require,module,exports){
+'use strict';
+
+var template = require('../Template/Template');//PS:这里依赖了 Template 模块
+
+/*
+ * 构造方法
+ *
+ * 参数说明：
+ * opts 【Obj】
+ * opts 对象的子属性：
+ * $target 【Jquery Dom Obj】 必传，绑定延迟加载触发滚动事件的目标对象，默认为 window，通常情况下不需要修改
+ * method 【String】 加载方式，默认是 fromToBottom 从下方异步插入 dom 结构，传入可选值：fromToTop、fromToBottom
+ * distanceToPageBottom 【Number】 每次触发延迟加载的滚动高度，默认是 200
+ * isLazyLoad 【Boolean】 是否对延迟加载内容的图片做 lazyLoad 处理，默认为 true
+ * allData 【Array】 延迟加载
+ * preRender 【Integer】 预加载的屏数
+ * renderCb 【Function】 延迟插入的 dom 结构渲染完成后执行的回调函数
+ * */
+var LazyDom = function (opts) {
+    var _this = this;
+
+    _this.options = {
+        $target: $(window),
+        method: 'fromToBottom',
+        distanceToPageBottom: 200,
+        isLazyLoad: true,
+        allData: [],
+        preRender: 0,
+        renderCb: $.noop,
+        finishEvent: $.noop,
+
+        $doc: $(document), //document 的 Jquery 对象缓存
+        oldTop: 0, //上一次触发延迟加载的滚动高度
+        recTop: 0,
+        targetH: 0,
+        dataIndex: 0
+    };
+
+    $.extend(_this.options, opts);
+
+    _this.getTargetH();
+    _this.process();
+    _this.bindEvent();
+    _this.scroll();
+    _this.chkBegin();
+
+    return _this;
+};
+
+/*
+* 获取触发异步加载滚动事件的目标对象的高度
+* */
+LazyDom.prototype.getTargetH = function () {
+    var options = this.options;
+    options.targetH = options.$target.height();
+    return options.targetH;
+};
+
+/*
+ * 数据处理，获得当次异步加载所需的渲染数据
+ * */
+LazyDom.prototype.process = function () {
+    var options = this.options,
+        allData = options.allData,
+        curData = allData[options.dataIndex];
+
+    if (curData) {
+        curData.data = curData.data ? curData.data : [];
+        curData.dataLen = curData.data.length;
+        curData.rowCountPerScreen = Math.ceil(options.targetH / curData.listItemHeight); //每屏可显示的商品行数 = 触发元素高度 / 每个商品元素的高度
+        curData.renderCb = curData.renderCb ? curData.renderCb : $.noop;
+    }
+};
+
+/*
+ * 数据处理，提取当次异步加载所需的渲染数据
+ *
+ * 参数说明：
+ * screenCount 【Integer】 必传，要加载的屏数
+ * */
+LazyDom.prototype.extract = function (screenCount) {
+    var _this = this,
+        options = _this.options,
+        curData = options.allData[options.dataIndex];
+
+    if (curData && curData.type !== 'callback') {
+
+        var startIndex = curData.startIndex ? curData.startIndex : 0, //开始下标
+            endIndex = startIndex + curData.rowCountPerScreen * curData.goodsCountPerRow * screenCount, //结束下标 = 开始下标 + (每屏可加载的商品行数 * 每行的商品数 * 屏数)
+            sliceData = curData.data.slice(startIndex, endIndex), //截取要加载的商品数据
+            retData = {
+                $node: curData.$node, //需要插入 dom 元素的节点对象【用户传入】
+                listItemHeight: curData.listItemHeight, //商品列表每个商品元素的高度
+                rowCountPerScreen: curData.rowCountPerScreen, //每屏可显示的商品行数
+                goodsCountPerRow: curData.goodsCountPerRow, //每行的商品数【用户传入】
+                template: curData.template, //商品的渲染模版【用户传入】
+                renderCb: curData.renderCb, //当前模块每次异步渲染完后执行的回调函数【用户传入】
+                sliceData: sliceData //本次异步加载需要用到的商品数据【用户传入】
+            };
+
+        //【结束下标】变成新的【开始下标】
+        curData.startIndex = endIndex;
+
+        if (curData.startIndex >= curData.data.length) {
+            //如果当前模块的数据已经加载完了
+            if (options.dataIndex < options.allData.length) {
+                //如果当前模块不是最后一个延迟加载模块，触发下一个模块的数据加载
+                options.dataIndex++;
+                _this.process();
+                _this.scroll();
+            }
+        }
+
+        return retData;
+
+    } else if (curData && curData.type === 'callback') {
+
+        curData.renderCb && curData.renderCb(curData.$node);
+        if (options.dataIndex < options.allData.length) {
+            //如果当前模块不是最后一个延迟加载模块，触发下一个模块的数据加载
+            options.dataIndex++;
+            _this.process();
+            _this.scroll();
+        }
+        return null;
+
+    } else {
+
+        if (!_this.hasTriggerFinish) {
+            _this.hasTriggerFinish = true;
+            options.finishEvent();
+            options.$target.off('scroll.lazyDom');
+            options.$target.off('resize.lazyDom')
+        }
+        return null;
+
+    }
+};
+
+/*
+ * 生成dom，并插入到页面中
+ *
+ * 参数说明：
+ * opts 【Obj】
+ * opts 对象的子属性：
+ * $node 【Jquery Dom Obj】 必传，需要插入 dom 元素的目标对象
+ * sliceData 【Array】 渲染 dom 所需的数据
+ * template 【String】 渲染 dom 所需的模版
+ * renderCb 【Function】 dom 元素成功渲染到页面中后执行的回调函数
+ * */
+LazyDom.prototype.createDom = function (opts) {
+    var _this = this,
+        options = _this.options,
+        $node = opts.$node,
+        htmlArr = [],
+        $createEl = null;
+
+    for (var i = 0, len = opts.sliceData.length; i < len; i++) {
+        var html = template(opts.template, opts.sliceData[i]);
+        htmlArr.push(html);
+    }
+
+    $createEl = $(htmlArr.join(''));
+
+    $node.append($createEl);
+    opts.renderCb($node, $createEl);
+    options.renderCb($node, $createEl);
+
+    if (options.isLazyLoad && typeof $.fn.lazyload == 'function') {
+        $createEl.find('img.lazy').lazyload({
+            threshold: 400,
+            failure_limit: 10
+        });
+    }
+};
+
+/*
+ * 滚动事件的回调函数，根据滚动后的页面状况，判断是否触发 dom 异步加载
+ * */
+LazyDom.prototype.scroll = function () {
+    var _this = this,
+        options = _this.options,
+        newTop = options.$target.scrollTop(),
+        docH = options.$doc.height();
+
+    if (options.method == 'fromToTop') {
+
+        if (newTop > options.oldTop) {
+
+            var scrollHeight = newTop - options.recTop;
+
+            if (scrollHeight > options.targetH) {
+
+                var len = Math.floor(scrollHeight / options.targetH);
+                if (docH - newTop < options.targetH) {
+                    len = len + 1;
+                }
+
+                var extractData = _this.extract(len);
+                if (extractData) {
+                    _this.createDom(extractData);
+                }
+
+                options.recTop = newTop;
+
+            }
+
+            options.oldTop = newTop;
+
+        }
+
+    } else if (options.method == 'fromToBottom') {
+
+        if (docH - newTop - options.targetH <= options.distanceToPageBottom) {
+
+            var extractData = _this.extract(1);
+            if (extractData) {
+                _this.createDom(extractData);
+            }
+        }
+
+    }
+
+};
+
+/*
+ * 绑定 dom 延迟加载触发事件
+ * */
+LazyDom.prototype.bindEvent = function () {
+    var _this = this,
+        options = _this.options;
+
+    options.$target.on('scroll.lazyDom', function () {
+        _this.scroll();
+    });
+
+    options.$target.on('resize.lazyDom', function () {
+        _this.getTargetH();
+        _this.process();
+        _this.scroll();
+    });
+};
+
+/*
+ * 检测页面初始化时是否需要触发加载
+ * */
+LazyDom.prototype.chkBegin = function () {
+    var _this = this,
+        options = _this.options,
+        winH = options.$target.height(),
+        docH = options.$doc.height();
+
+    if (options.preRender && !_this.preRenderDone) {
+        var sliceData = _this.extract(options.preRender);
+        if (sliceData) {
+            _this.createDom(sliceData);
+            _this.preRenderDone = true;
+        }
+    }
+
+    if (options.method == 'fromToTop') {
+        if (docH < winH * 2) {
+            var sliceData = _this.extract(1);
+            if (sliceData) {
+                setTimeout(function() {
+                    _this.createDom(sliceData);
+                    _this.chkBegin();
+                }, 1);
+            }
+        }
+    }
+};
+
+/*
+ * 解绑 dom 延迟加载触发事件
+ * */
+LazyDom.prototype.destroy = function() {
+    this.options.$target.off('scroll.lazyDom').off('resize.lazyDom')
+};
+
+module.exports = LazyDom;
+
+},{"../Template/Template":15}],7:[function(require,module,exports){
 'use strict';
 var Loading = {
     template: '<div id="J-h-loading" class="ui-loading"></div>',
@@ -332,7 +615,7 @@ var Loading = {
 
 module.exports = Loading;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 /* === Class DelayedFunc begin === */
 /*
@@ -370,7 +653,7 @@ DelayedFunc.prototype.checkStatus = function () {
 };
 
 module.exports = DelayedFunc;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 var DelayedFunc = require('./DelayedFunc');
 
@@ -557,7 +840,7 @@ FuncDepot.prototype.stockPop = function (condition) {
 };
 
 module.exports = FuncDepot;
-},{"./DelayedFunc":7}],9:[function(require,module,exports){
+},{"./DelayedFunc":8}],10:[function(require,module,exports){
 'use strict';
 var FuncDepot = require('./FuncDepot');
 
@@ -637,7 +920,7 @@ Monitor.prototype.unListen = function (condition) {
 };
 
 module.exports = Monitor;
-},{"./FuncDepot":8}],10:[function(require,module,exports){
+},{"./FuncDepot":9}],11:[function(require,module,exports){
 'use strict';
 /* === Class Pager begin === */
 /*
@@ -944,7 +1227,7 @@ Pager.prototype.bindEvents = function () {
 
 module.exports = Pager;
 
-},{"../Template/Template":14}],11:[function(require,module,exports){
+},{"../Template/Template":15}],12:[function(require,module,exports){
 'use strict';
 /* === Class Storage begin === */
 var Storage = function () {
@@ -1038,7 +1321,7 @@ Storage.prototype.remove = function (key) {
 };
 
 module.exports = Storage;
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 /*
  * 根据字符长度截字方法
@@ -1107,7 +1390,7 @@ var subStrByCode = function (str, codeLength, flag, EnglishType) {
 
 module.exports = subStrByCode;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 //class Switchable 【依赖于Jquery】
 var Switchable = function (options) {
@@ -1543,7 +1826,7 @@ Switchable.prototype.next = function () {
 
 module.exports = Switchable;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 /*
  * 模板编译方法
@@ -1615,18 +1898,18 @@ var template = function (text, data) {
     }
 
     if (data) return render(data);
-    var template = function (data) {
+    var tpl = function (data) {
         return render.call(this, data);
     };
 
-    template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
+    tpl.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
 
-    return template;
+    return tpl;
 };
 
 module.exports = template;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 var tooltips = {};
 
@@ -1847,7 +2130,7 @@ tooltips.hide = function ($target) {
 
 module.exports = tooltips;
 
-},{"../Template/Template":14}],16:[function(require,module,exports){
+},{"../Template/Template":15}],17:[function(require,module,exports){
 'use strict';
 /*
  * 参数说明：
@@ -1874,7 +2157,7 @@ var transformParamsToJSON = function (paramsStr) {
 
 module.exports = transformParamsToJSON;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     //修复 IE8 以下不支持 indexOf 导致产生错误的 bug
@@ -3001,7 +3284,7 @@ module.exports = function ($) {
     * */
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     // 验证规则
@@ -3182,7 +3465,7 @@ module.exports = function ($) {
     $.validationEngineLanguage.newLang();
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 (function(window, $){
     //实例
@@ -3197,6 +3480,7 @@ module.exports = function ($) {
     //类
     var Switchable = require('./Util_modules/Switchable/Switchable');
     var Pager = require('./Util_modules/Pager/Pager');
+    var LazyDom = require('./Util_modules/LazyDom/LazyDom');
 
     //方法
     var Template = require('./Util_modules/Template/Template');
@@ -3215,9 +3499,9 @@ module.exports = function ($) {
 
     //代理console.log
     H.log = function(msg){
-        if(window["console"]){
+        if(window['console']){
             try{
-                console.log.call(console, "%c" + msg, "font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;");
+                console.log.call(console, '%c' + msg, 'font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;');
             }catch(e){
                 console.log(msg);
             }
@@ -3236,6 +3520,7 @@ module.exports = function ($) {
     //类
     H.Switchable = Switchable;
     H.Pager = Pager;
+    H.LazyDom = LazyDom;
 
     //方法
     H.template = Template;
@@ -3265,7 +3550,232 @@ module.exports = function ($) {
 
 })(window, jQuery);
 
-},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/Loading/Loading":6,"./Util_modules/Monitor/Monitor":9,"./Util_modules/Pager/Pager":10,"./Util_modules/Storage/Storage":11,"./Util_modules/SubStrByCode/SubStrByCode":12,"./Util_modules/Switchable/Switchable":13,"./Util_modules/Template/Template":14,"./Util_modules/Tooltips/Tooltips":15,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":16,"./Util_modules/ValidationEngine/ValidationEngine":17,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":18}]},{},[19])
+},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/LazyDom/LazyDom":6,"./Util_modules/Loading/Loading":7,"./Util_modules/Monitor/Monitor":10,"./Util_modules/Pager/Pager":11,"./Util_modules/Storage/Storage":12,"./Util_modules/SubStrByCode/SubStrByCode":13,"./Util_modules/Switchable/Switchable":14,"./Util_modules/Template/Template":15,"./Util_modules/Tooltips/Tooltips":16,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":17,"./Util_modules/ValidationEngine/ValidationEngine":18,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":19}]},{},[20])
+/*
+ * Lazy Load - jQuery plugin for lazy loading images
+ *
+ * Copyright (c) 2007-2012 Mika Tuupola
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Project home:
+ *   http://www.appelsiini.net/projects/lazyload
+ *
+ * Version:  1.8.0
+ *
+ * patch 1:支持img节点的异步创建，并且摒弃window事件的重复绑定
+ * patch 2:参数加入标识lazy的class名称，并且在绑定完事件后移除该class
+ */
+
+!(function($, window) {
+    var $window = $(window);
+
+    $.fn.lazyload = function(options) {
+        var elements = this;
+        var $container;
+        var settings = {
+            threshold       : 0,
+            failure_limit   : 0,
+            event           : "scroll",
+            effect          : "show",
+            container       : window,
+            data_attribute  : "original",
+            skip_invisible  : true,
+            appear          : null,
+            load            : null,
+            pre_class		: 'lazy'			//patch2:筛选图片用的class名
+        };
+
+        function update() {
+            var counter = 0;
+
+            elements.each(function() {
+                var $this = $(this);
+                if (settings.skip_invisible && !$this.is(":visible")) {
+                    return;
+                }
+                if ($.abovethetop(this, settings) ||
+                    $.leftofbegin(this, settings)) {
+                    /* Nothing. */
+                } else if (!$.belowthefold(this, settings) &&
+                    !$.rightoffold(this, settings)) {
+                    $this.trigger("appear");
+                } else {
+                    if (++counter > settings.failure_limit) {
+                        return false;
+                    }
+                }
+            });
+        }
+
+        if(options) {
+            /* Maintain BC for a couple of versions. */
+            if (undefined !== options.failurelimit) {
+                options.failure_limit = options.failurelimit;
+                delete options.failurelimit;
+            }
+            if (undefined !== options.effectspeed) {
+                options.effect_speed = options.effectspeed;
+                delete options.effectspeed;
+            }
+
+            $.extend(settings, options);
+        }
+
+        /* Cache container as jQuery as object. */
+        $container = (settings.container === undefined ||
+            settings.container === window) ? $window : $(settings.container);
+
+        /* Fire one scroll event per scroll. Not one scroll event per image. */
+        if (0 === settings.event.indexOf("scroll")) {
+            //patch1:移除原有事件，避免多次触发
+            $container
+                .off(settings.event +'.lazyload')
+                .on(settings.event +'.lazyload', function(event) {
+                    return update();
+                });
+        }
+
+        this.each(function() {
+            var self = this;
+            var $self = $(self);
+
+            self.loaded = false;
+
+            /* When appear is triggered load original image. */
+            $self
+                //patch1:移除原有事件，避免多次触发
+                .off('appear')
+                .one("appear", function() {
+                    if (!this.loaded) {
+                        if (settings.appear) {
+                            var elements_left = elements.length;
+                            settings.appear.call(self, elements_left, settings);
+                        }
+                        $("<img />")
+                            .on("load", function() {
+                                $self
+                                    .hide()
+                                    .attr("src", $self.data(settings.data_attribute))
+                                    [settings.effect](settings.effect_speed)
+                                    //patch2:移除图片标识class，避免重复绑定事件
+                                    .removeClass(settings.pre_class);
+                                self.loaded = true;
+
+                                /* Remove image from array so it is not looped next time. */
+                                var temp = $.grep(elements, function(element) {
+                                    return !element.loaded;
+                                });
+                                elements = $(temp);
+
+                                if (settings.load) {
+                                    var elements_left = elements.length;
+                                    settings.load.call(self, elements_left, settings);
+                                }
+                            })
+                            .attr("src", $self.data(settings.data_attribute));
+                    }
+                });
+
+            /* When wanted event is triggered load original image */
+            /* by triggering appear.                              */
+            if (0 !== settings.event.indexOf("scroll")) {
+                $self.on(settings.event, function(event) {
+                    if (!self.loaded) {
+                        $self.trigger("appear");
+                    }
+                });
+            }
+        });
+
+        /* Check if something appears when window is resized. */
+        //patch1:移除原有事件，避免多次触发
+        $window
+            .off("resize.lazyload")
+            .on("resize.lazyload", function(event) {
+                update();
+            });
+
+        /* Force initial check if images should appear. */
+        update();
+
+        return this;
+    };
+
+    /* Convenience methods in jQuery namespace.           */
+    /* Use as  $.belowthefold(element, {threshold : 100, container : window}) */
+
+    $.belowthefold = function(element, settings) {
+        var fold;
+
+        if (settings.container === undefined || settings.container === window) {
+            fold = $window.height() + $window.scrollTop();
+        } else {
+            fold = $(settings.container).offset().top + $(settings.container).height();
+        }
+
+        return fold <= $(element).offset().top - settings.threshold;
+    };
+
+    $.rightoffold = function(element, settings) {
+        var fold;
+
+        if (settings.container === undefined || settings.container === window) {
+            fold = $window.width() + $window.scrollLeft();
+        } else {
+            fold = $(settings.container).offset().left + $(settings.container).width();
+        }
+
+        return fold <= $(element).offset().left - settings.threshold;
+    };
+
+    $.abovethetop = function(element, settings) {
+        var fold;
+
+        if (settings.container === undefined || settings.container === window) {
+            fold = $window.scrollTop();
+        } else {
+            fold = $(settings.container).offset().top;
+        }
+
+        return fold >= $(element).offset().top + settings.threshold  + $(element).height();
+    };
+
+    $.leftofbegin = function(element, settings) {
+        var fold;
+
+        if (settings.container === undefined || settings.container === window) {
+            fold = $window.scrollLeft();
+        } else {
+            fold = $(settings.container).offset().left;
+        }
+
+        return fold >= $(element).offset().left + settings.threshold + $(element).width();
+    };
+
+    $.inviewport = function(element, settings) {
+        return !$.rightoffold(element, settings) && !$.leftofbegin(element, settings) &&
+            !$.belowthefold(element, settings) && !$.abovethetop(element, settings);
+    };
+
+    /* Custom selectors for your convenience.   */
+    /* Use as $("img:below-the-fold").something() */
+
+    $.extend($.expr[':'], {
+        "below-the-fold" : function(a) { return $.belowthefold(a, {threshold : 0}); },
+        "above-the-top"  : function(a) { return !$.belowthefold(a, {threshold : 0}); },
+        "right-of-screen": function(a) { return $.rightoffold(a, {threshold : 0}); },
+        "left-of-screen" : function(a) { return !$.rightoffold(a, {threshold : 0}); },
+        "in-viewport"    : function(a) { return !$.inviewport(a, {threshold : 0}); },
+        /* Maintain BC for couple of versions. */
+        "above-the-fold" : function(a) { return !$.belowthefold(a, {threshold : 0}); },
+        "right-of-fold"  : function(a) { return $.rightoffold(a, {threshold : 0}); },
+        "left-of-fold"   : function(a) { return !$.rightoffold(a, {threshold : 0}); }
+    });
+
+})(jQuery, window);
+
 /*! artDialog v6.0.5 | https://github.com/aui/artDialog */
 !(function () {
 

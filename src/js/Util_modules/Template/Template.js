@@ -69,13 +69,13 @@ var template = function (text, data) {
     }
 
     if (data) return render(data);
-    var template = function (data) {
+    var tpl = function (data) {
         return render.call(this, data);
     };
 
-    template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
+    tpl.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
 
-    return template;
+    return tpl;
 };
 
 module.exports = template;

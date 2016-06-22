@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LazyDom</title>
+    <link href="demo.css" rel="stylesheet">
+    <script src="jquery.js"></script>
+
+    <link href="dist/css/H.min.css" rel="stylesheet" type="text/css">
+    <script src="dist/js/H.min.js"></script>
+
+    <style type="text/css">
+        ul {
+            list-style: none;
+        }
+
+        .goods-list{
+            overflow: hidden;
+        }
+
+        .goods-list .item{
+            width: 182px;
+            height: 192px;
+            padding: 5px 3px 6px 3px;
+            float: left;
+        }
+
+        .goods-list .inner{
+            border: 1px solid #e2e2e2;
+        }
+
+        .goods-list .item img{
+            width: 180px;
+            height: 130px;
+            border: none;
+        }
+
+        .goods-list .item .cont{
+            height: 60px;
+            padding: 0 5px;
+        }
+
+        .goods-list .item .name{
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .goods-list .item .desc{
+            height: 25px;
+            line-height: 25px;
+            font-size: 12px;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>LazyDom</h2>
+    <ul>
+        <li>使用方法请看源代码及注释</li>
+    </ul>
+
+    <div style="height: 50px"></div>
+    <h2>Demo</h2>
+
+    <ul id="J-wrap-1" class="goods-list"></ul>
+    <br>
+    <ul id="J-wrap-2" class="goods-list"></ul>
+
+    <br><br><br>
+
+    <div style="height: 100px;"></div>
+
+    <script type="text/html" id="J-tpl">
+    <li class="item">
+        <div class="inner">
+            <img class="lazy" data-original="<%= img %>" width="180" height="130">
+            <div class="cont">
+                <p class="name"><%= name %></p>
+                <p class="desc"><%= desc %></p>
+            </div>
+        </div>
+    </li>
+    </script>
+</div>
+
+<script type="text/javascript">
+    /*
+    * lazyDomData 数据格式说明：
+    * $node --- 需要插入 dom 元素的节点对象
+    * listItemHeight --- 商品列表每个商品元素的高度
+    * goodsCountPerRow --- 每行的商品数
+    * template --- 商品的渲染模版
+    * data --- 异步加载需要用到的商品数据
+    * renderCb --- 当前模块每次异步渲染完后执行的回调函数
+    * */
+    var lazyDomData = [{
+        $node: $('#J-wrap-1'),
+        listItemHeight: 200,
+        goodsCountPerRow: 5,
+        template: $('#J-tpl').html(),
+        data: [{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        }],
+        renderCb: function ($node, $createEl) {}
+    },{
+        $node: $('#J-wrap-2'),
+        listItemHeight: 200,
+        goodsCountPerRow: 5,
+        template: $('#J-tpl').html(),
+        data: [{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        },{
+            img: 'https://unsplash.it/g/180/130?image=0',
+            name: '商品1',
+            desc: '这里是商品1的商品概述'
+        }],
+        renderCb: function ($node, $createEl) {}
+    }];
+
+    /*
+     * lazyDom对象构造方法
+     *
+     * 参数说明：
+     * opts 【Obj】
+     * opts 对象的子属性：
+     * $target 【Jquery Dom Obj】 必传，绑定延迟加载触发滚动事件的目标对象，默认为 window，通常情况下不需要修改
+     * method 【String】 加载方式，默认是 fromToBottom 从下方异步插入 dom 结构，通常情况下不需要修改，传参可选值：fromToTop、fromToBottom
+     * distanceToPageBottom 【Number】 距离页面底部多少距离的时候触发加载，默认是 200。当 method 的 为 fromToBottom 时才生效
+     * isLazyLoad 【Boolean】 是否对延迟加载内容的图片做 lazyLoad 处理（前提是已经引入了 lazyLoad 插件，H.Util 默认自带），默认为 true
+     * allData 【Array】 延迟加载
+     * preRender 【Integer】 预加载的屏数
+     * renderCb 【Function】 延迟插入的 dom 结构渲染完成后执行的回调函数
+     * */
+    var lazyDom = new H.LazyDom({
+        distanceToPageBottom: 200,
+        isLazyLoad: true,
+        allData: lazyDomData,
+        preRender: 1,
+        renderCb: function () {}
+    });
+</script>
+</body>
+</html>

@@ -12,6 +12,7 @@
     //类
     var Switchable = require('./Util_modules/Switchable/Switchable');
     var Pager = require('./Util_modules/Pager/Pager');
+    var LazyDom = require('./Util_modules/LazyDom/LazyDom');
 
     //方法
     var Template = require('./Util_modules/Template/Template');
@@ -30,9 +31,9 @@
 
     //代理console.log
     H.log = function(msg){
-        if(window["console"]){
+        if(window['console']){
             try{
-                console.log.call(console, "%c" + msg, "font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;");
+                console.log.call(console, '%c' + msg, 'font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;');
             }catch(e){
                 console.log(msg);
             }
@@ -51,6 +52,7 @@
     //类
     H.Switchable = Switchable;
     H.Pager = Pager;
+    H.LazyDom = LazyDom;
 
     //方法
     H.template = Template;

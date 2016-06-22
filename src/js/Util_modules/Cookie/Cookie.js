@@ -9,8 +9,8 @@ var Cookie = {
      * name 【String】 Cookie名
      * value 【String】 Cookie值
      * time 【Int】 过期时长（单位：毫秒）
-     * domain 【String】 Cookie域
-     * path 【String】 Cookie路径
+     * domain 【String】 Cookie域，可缺省，默认值为空字符串
+     * path 【String】 Cookie路径，可缺省，默认值为 '/'
      * */
     set: function (name, value, time, domain, path) {
         var cookieArr = [],
@@ -42,8 +42,8 @@ var Cookie = {
     /*
      * 参数说明：
      * name 【String】 Cookie名
-     * domain 【String】 Cookie域
-     * path 【String】 Cookie路径
+     * domain 【String】 Cookie域，可缺省，默认值为空字符串
+     * path 【String】 Cookie路径，可缺省，默认值为 '/'
      * */
     remove: function (name, domain, path) {
         var _this = this,
