@@ -202,13 +202,13 @@ H.JsLoader 对象提供了1个方法：<br />
  * */
 
 //加载单个脚本
-HaierJS.JsLoader.get({
+H.JsLoader.get({
     name: 'avalon',
     url: 'vendor/avalon/avalon.shim.js'
 });
 
 //加载多个脚本
-HaierJS.JsLoader.get({
+H.JsLoader.get({
     name: 'companyIndex',
     url: 'js/company-index.js',
     requires: ['avalon', 'jcrop', 'plupload']
