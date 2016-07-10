@@ -1687,6 +1687,67 @@ textarea.ui-text-small {
 :root .ui-checkbox-simulation.z-hover {
   background-position: -24px -21px;
 }
+/* switch */
+.ui-switch {
+  display: inline-block;
+}
+.ui-switch input[type=checkbox] {
+  visibility: hidden;
+}
+.ui-switch input[type=checkbox] + .ui-switch-btn {
+  display: block;
+  position: relative;
+  width: 52px;
+  height: 24px;
+}
+.ui-switch input[type=checkbox] + .ui-switch-btn:before {
+  width: 52px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  text-indent: 30px;
+  background-color: #888888;
+  display: block;
+  content: '';
+}
+.ui-switch input[type=checkbox] + .ui-switch-btn:after {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin: 2px;
+  background-color: #ffffff;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  -webkit-transition: left .3s ease;
+          transition: left .3s ease;
+}
+.ui-switch input[type=checkbox]:checked + .ui-switch-btn:before {
+  background-color: #c90b37;
+  text-indent: 5px;
+  font-size: 16px;
+  content: '';
+}
+.ui-switch input[type=checkbox]:checked + .ui-switch-btn:after {
+  left: 28px;
+}
+.ui-switch-blue input[type=checkbox]:checked + .ui-switch-btn:before {
+  background-color: #149bdf;
+}
+.ui-switch-green input[type=checkbox]:checked + .ui-switch-btn:before {
+  background-color: #5eb95e;
+}
+.ui-switch-orange input[type=checkbox]:checked + .ui-switch-btn:before {
+  background-color: #fb9450;
+}
+.ui-switch-violet input[type=checkbox]:checked + .ui-switch-btn:before {
+  background-color: #852b99;
+}
 /* tooltips */
 .ui-tooltips-top-arrow .ui-tooltips-arrow,
 .ui-tooltips-top-left-arrow .ui-tooltips-arrow,
