@@ -5238,6 +5238,10 @@ H.frameBox = function (opts) {
         opts.showCloseBtn = true;
     }
 
+    if (typeof opts.autoFix == 'undefined') {
+        opts.autoFix = true;
+    }
+
     opts.content = '<iframe frameborder="0" class="ui-dialog-iframe" id="iframe_' + now + '" name="iframe_' + now + '" src="' + opts.content + '"></iframe>';
     opts.padding = 0;
 
@@ -5287,9 +5291,11 @@ H.frameBox = function (opts) {
 
             };
 
-        $(iframe).on('load', function(){
-            afterLoad();
-        });
+        if (opts.autoFix) {
+            $(iframe).on('load', function(){
+                afterLoad();
+            });
+        }
 
         onshowFunc && onshowFunc();
         timeOutCall && timeOutCall.call(this);
