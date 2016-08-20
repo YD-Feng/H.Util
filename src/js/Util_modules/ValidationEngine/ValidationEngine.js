@@ -278,14 +278,14 @@ module.exports = function ($) {
          * */
         _validateField: function ($field, options) {
             if ($field.is(':hidden') && !options.prettySelect && $field.is('select') || $field.parent().is(':hidden')) {
-                return false;
+                return true;
             }
 
             var veRules = $field.attr(options.validateAttribute),
                 veRulesList = /validate\[(.*)\]/.exec(veRules);
 
             if (!veRulesList) {
-                return false;
+                return true;
             }
 
             var str = veRulesList[1],
