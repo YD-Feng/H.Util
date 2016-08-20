@@ -217,10 +217,10 @@ module.exports = function ($) {
 
                 //如果这一类（name属性相同的控件为同一类）控件还没进行验证
                 if ($.inArray(this.name, names) < 0) {
-                    errorFound |= methods._validateField($field, options);
+                    errorFound = !methods._validateField($field, options);
 
                     if (errorFound && first_err == null) {
-                        //如果尚未出现校验报错
+                        //如果出现校验报错
                         if ($field.is(':hidden') && options.prettySelect && $field.is('select')) {
                             //如果是隐藏控件（用户自定义生成的下拉框，原控件会被隐藏掉）
                             $field = $form.find('#' + $field.data('prettySelect'));
