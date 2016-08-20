@@ -2364,7 +2364,6 @@ module.exports = function ($) {
          * */
         _validateFields: function ($form) {
             var options = $form.data('jqv'),
-                errorFound = false, //错误标记，当校验出现错误，它会被设为true
                 first_err = null; //用来缓存第一个出现报错的控件
 
             //触发 开始进行表单校验 钩子
@@ -2377,7 +2376,8 @@ module.exports = function ($) {
 
                 //如果这一类（name属性相同的控件为同一类）控件还没进行验证
                 if ($.inArray(this.name, names) < 0) {
-                    errorFound = !methods._validateField($field, options);
+                    //定义错误标记，当校验出现错误，它会被设为true
+                    var errorFound = !methods._validateField($field, options);
 
                     if (errorFound && first_err == null) {
                         //如果出现校验报错
@@ -2405,9 +2405,9 @@ module.exports = function ($) {
             });
 
             //触发 表单校验完成 钩子
-            $form.trigger('jqv.form.result', [errorFound]);
+            $form.trigger('jqv.form.result', [(first_err == null)]);
 
-            if (errorFound) {
+            if (first_err != null) {
 
                 if (options.scroll) {
                     var destination = first_err.offset().top,
@@ -2605,11 +2605,6 @@ module.exports = function ($) {
 
                         case '_error':
                             errorMsg = errorMsg.message;
-                            break;
-
-                        case '_error_no_prompt':
-                            //如果想抛出一个错误，但不展示提示信息气泡吗，返回true
-                            return true;
                             break;
 
                         default:
