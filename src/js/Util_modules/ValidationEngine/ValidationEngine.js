@@ -277,7 +277,7 @@ module.exports = function ($) {
          * 验证通过是返回 false，否则返回 true
          * */
         _validateField: function ($field, options) {
-            if ($field.is(':hidden') && !options.prettySelect && $field.is('select') || $field.parent().is(':hidden')) {
+            if ($field.is(':hidden') && !options.prettySelect && $field.is('select') || $field.parent().is(':hidden') || $field.prop('disabled')) {
                 return true;
             }
 
