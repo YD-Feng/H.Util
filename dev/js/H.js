@@ -2764,8 +2764,28 @@ module.exports = function ($) {
                 case 'textarea':
                 case 'file':
                 case 'select-one':
-                case 'select-multiple':
-                case 'radio':*/
+                case 'select-multiple':*/
+                case 'radio':
+                    if (condRequired) {
+                        if (!$field.attr('checked')) {
+                            return options.allrules[rules[i]].alertTextCheckboxMultiple;
+                        }
+                        break;
+                    }
+
+                    var $form = $field.closest('form, .J-ve-cont'),
+                        name = $field.attr('name');
+
+                    if ($form.find('input[name="' + name + '"]:checked').size() == 0) {
+
+                        if ($form.find('input[name="' + name + '"]:visible').size() == 1) {
+                            return options.allrules[rules[i]].alertTextCheckbox;
+                        } else {
+                            return options.allrules[rules[i]].alertTextCheckboxMultiple;
+                        }
+
+                    }
+                    break;
                 case 'checkbox':
                     if (condRequired) {
                         if (!$field.attr('checked')) {
