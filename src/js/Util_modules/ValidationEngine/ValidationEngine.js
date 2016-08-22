@@ -607,7 +607,7 @@ module.exports = function ($) {
                 case 'select-multiple':*/
                 case 'radio':
                     if (condRequired) {
-                        if (!$field.attr('checked')) {
+                        if (!$field.prop('checked')) {
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
                         }
                         break;
@@ -628,7 +628,7 @@ module.exports = function ($) {
                     break;
                 case 'checkbox':
                     if (condRequired) {
-                        if (!$field.attr('checked')) {
+                        if (!$field.prop('checked')) {
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
                         }
                         break;
