@@ -46,8 +46,10 @@
         <div class="ui-pager">
             <% $.each(els, function (i, item) { %>
             <a class="J-page-to <%= item.cls %>" data-pg="<%= item.pg %>"><%= item.name %></a>
-            <% }) %>
+            <% }); %>
         </div>
+        &nbsp;&nbsp;跳转到<input type="text" class="ui-pager-input J-page-go-input" value="<%= apg %>">页&nbsp;
+        <button class="ui-pager-btn J-page-go-btn" data-cur-page="<%= apg %>" data-max-page="<%= pgc %>">GO</button>
     </script>
 </div>
 

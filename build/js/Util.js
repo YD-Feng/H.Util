@@ -1229,7 +1229,7 @@ Pager.prototype.transformOpts = function (options) {
  * */
 Pager.prototype.bindEvents = function () {
     var _this = this;
-    _this.wrapT &&_this.wrapT
+    _this.wrapT && _this.wrapT
         .on('click', '.J-page-to', function () {
             var pg = $(this).data('pg');
             if (pg) {
@@ -1237,11 +1237,24 @@ Pager.prototype.bindEvents = function () {
             }
         });
 
-    _this.wrapB &&_this.wrapB
+    _this.wrapB && _this.wrapB
         .on('click', '.J-page-to', function () {
             var pg = $(this).data('pg');
             if (pg) {
                 _this.goToPageFunc(pg);
+            }
+        })
+        .on('click', '.J-page-go-btn', function (e) {
+            var $this = $(this),
+                pg = _this.wrapB.find('input.J-page-go-input').val() * 1,
+                curPg = $this.data('curPage') * 1,
+                maxPg = $this.data('maxPage') * 1;
+
+            if (!isNaN(pg)) {
+                var _pg = pg > maxPg ? maxPg : (pg < 1 ? 1 : pg);
+                if (_pg != curPg) {
+                    _this.goToPageFunc(_pg);
+                }
             }
         });
 
