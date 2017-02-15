@@ -32,8 +32,8 @@ H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<
 本地缓存，假如浏览器不支持 localStorage，会改用 userData 来实现同样的功能，因此有很高兼容性<br /><br />
 * **[ItvEvents](#ItvEvents)**<br />
 事件定频器，它的作用是，使得绑定在指定元素上的指定事件的触发函数产生一定执行时间间隔，避免高频率触发事件时，函数随之高频率执行，以致影响应用的运行速度<br /><br />
-* **[JsLoader](#JsLoader)**<br />
-js脚本异步加载器，可以异步加载脚本，防止 DOM 加载阻塞，另外还支持依赖关系定义，保证脚本按照需要顺序加载<br /><br />
+* **[Loader](#Loader)**<br />
+异步加载器，可以异步加载静态资源（js，css），防止 DOM 加载阻塞，另外还支持依赖关系定义，保证脚本按照需要顺序加载<br /><br />
 * **[Pager](#Pager)**<br />
 分页生成器，通过异步请求的方式生成列表分页时非常有用<br /><br />
 * **[Template](#Template)**<br />
@@ -184,41 +184,47 @@ H.ItvEvents.removeEvent($(window), 'resize', 'resetSomeThing');
 
 <br />
 
-#<a name="JsLoader"></a>H.JsLoader
-H.JsLoader 对象提供了1个方法：<br />
-**H.JsLoader.get**<br />
+#<a name="Loader"></a>H.Loader
+H.Loader 对象提供了1个方法：<br />
+**H.Loader.get**<br />
 <br /><br />
 下面是这个方法的调用实例，注释是参数说明：
 ```
 /*
- * H.JsLoader.get(module[, module...]);
+ * H.Loader.get(module[, module...]);
  * 参数说明：
  * module 【Obj】【可以传多个,表示加载多个脚本】
  * 每个 module 对象包含了4个属性：
- * name 【String】 必传，要引入 JS 的模块名
- * url 【String】 必传，要引入 JS 的路径
- * requires 【String Array】 可选，此脚本依赖的模块（所依赖模块的模块名组成的集合）
+ * type 【String】 必传，要引入的模块类型，取值范围 "js"、"css"
+ * name 【String】 必传，要引入的模块名
+ * url 【String】 必传，要引入的模块路径
+ * requires 【String Array】 可选，此脚本依赖的模块（所依赖模块的【模块名】（也就是 name）组成的集合）
  * callBack 【Function】 回调函数，脚本加载完后执行的回调函数
  * */
 
 //加载单个脚本
-H.JsLoader.get({
-    name: 'avalon',
+H.Loader.get({
+    type: 'js',
+    name: 'avalon',
     url: 'vendor/avalon/avalon.shim.js'
 });
 
 //加载多个脚本
-H.JsLoader.get({
+H.Loader.get({
+    type: 'js',
     name: 'companyIndex',
     url: 'js/company-index.js',
     requires: ['avalon', 'jcrop', 'plupload']
 }, {
+    type: 'js',
     name: 'avalon',
     url: 'vendor/avalon/avalon.shim.js'
 }, {
+    type: 'js',
     name: 'jcrop',
     url: 'vendor/jcrop/jquery.Jcrop.min.js'
 }, {
+    type: 'js',
     name: 'plupload',
     url: 'vendor/plupload/plupload.full.min.js'
 });
