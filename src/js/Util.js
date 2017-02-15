@@ -30,12 +30,12 @@
     window.H = window.H || {};
 
     //代理console.log
-    H.log = function(msg){
-        if(window['console']){
-            try{
-                console.log.call(console, '%c' + msg, 'font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;');
-            }catch(e){
-                console.log(msg);
+    H.log = function (msg) {
+        if (typeof window['console'] != 'undefined') {
+            try {
+                window.console.log.call(window.console, '%c' + msg, 'font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;');
+            } catch (e) {
+                window.console.log(msg);
             }
         }
     };
@@ -80,6 +80,6 @@
         }
     });
 
-    H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo 找到');
+    H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
 
 })(window, jQuery);

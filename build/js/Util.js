@@ -216,12 +216,12 @@ module.exports = ItvEvents;
 
 },{}],5:[function(require,module,exports){
 'use strict';
-/* === Class JsLoader begin === */
+/* === Class Loader begin === */
 /*
  * 此类依赖于 Jquery 和 Monitor，它的实例化一定要在这两者之后
- * 此类的作用是，根据依赖关系来异步加载JS脚本
+ * 此类的作用是，根据依赖关系来异步加载 CSS，JS
  * */
-var JsLoader = function () {
+var Loader = function () {
     var _this = this;
     _this.queue = {};       //未加载模块列表
     _this.loaded = {};      //已加载模块列表
@@ -240,7 +240,7 @@ var JsLoader = function () {
  * requires 【String Array】 可选，此脚本依赖的模块（所依赖模块的模块名组成的集合）
  * callBack 【Function】 回调函数，脚本加载完后执行的回调函数
  * */
-JsLoader.prototype.get = function () {
+Loader.prototype.get = function () {
     var _this = this;
 
     for (var i = 0, argumentsLen = arguments.length; i < argumentsLen; i++) {
@@ -258,7 +258,7 @@ JsLoader.prototype.get = function () {
             var conditionArr = [];
 
             for (var j = 0, requiresLen = module.requires.length; j < requiresLen; j++) {
-                conditionArr.push('JsLoader_Success_' + module.requires[j]);
+                conditionArr.push('Loader_Success_' + module.requires[j]);
             }
 
             var condition = conditionArr.join(',');
@@ -277,29 +277,52 @@ JsLoader.prototype.get = function () {
  * module 【Obj】
  * 参考 get 方法关于 module 对象的详解
  * */
-JsLoader.prototype._execute = function (module) {
+Loader.prototype._execute = function (module) {
     var _this = this;
 
-    $.ajax({
-        url: module.url,
-        dataType: 'script',
-        context: {
-            name: module.name
-        },
-        cache: true,
-        crossDomain: true,
-        success: function () {
-            //标记模块已加载
-            _this.loaded[module.name] = 1;
-            delete _this.queue[module.name];
-
-            if (typeof module.callBack != 'undefined' && typeof module.callBack == 'function') {
-                module.callBack();
+    if (module.type == 'js') {
+        $.ajax({
+            url: module.url,
+            dataType: 'script',
+            context: {
+                name: module.name
+            },
+            cache: true,
+            crossDomain: true,
+            success: function () {
+                _this._loadSuccess(module);
             }
+        });
+    } else if (module.type == 'css') {
+        var link = document.createElement('link');
 
-            _this.Monitor.trigger('JsLoader_Success_' + module.name);
-        }
-    });
+        link.rel = 'stylesheet';
+        link.href = module.url;
+        link.onload = function () {
+            _this._loadSuccess(module);
+        };
+
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+};
+
+/*
+ * 参数说明：
+ * module 【Obj】
+ * 参考 get 方法关于 module 对象的详解
+ * */
+Loader.prototype._loadSuccess = function (module) {
+    var _this = this;
+
+    //标记模块已加载
+    _this.loaded[module.name] = 1;
+    delete _this.queue[module.name];
+
+    if (typeof module.callBack != 'undefined' && typeof module.callBack == 'function') {
+        module.callBack();
+    }
+
+    _this.Monitor.trigger('Loader_Success_' + module.name);
 };
 
 /*
@@ -307,7 +330,7 @@ JsLoader.prototype._execute = function (module) {
  * condition 【String】 触发条件名
  * moduleName 【String】 模块名，对应 get 方法传入对象的 name 属性
  * */
-JsLoader.prototype._addListen = function (condition, moduleName) {
+Loader.prototype._addListen = function (condition, moduleName) {
     var _this = this;
 
     _this.Monitor.listen(condition, function () {
@@ -315,7 +338,7 @@ JsLoader.prototype._addListen = function (condition, moduleName) {
     });
 };
 
-module.exports = JsLoader;
+module.exports = Loader;
 
 },{"../Monitor/Monitor":10}],6:[function(require,module,exports){
 'use strict';
@@ -1250,7 +1273,7 @@ var Storage = function () {
             expires.setDate(expires.getDate() + 365);
             _this.storage.expires = expires.toUTCString();
         } catch(e) {
-            alert('Storage Object create error!');
+            console && console.info('Storage Object create error!');
         }
     }
 };
@@ -1321,6 +1344,7 @@ Storage.prototype.remove = function (key) {
 };
 
 module.exports = Storage;
+
 },{}],13:[function(require,module,exports){
 'use strict';
 /*
@@ -3513,12 +3537,12 @@ module.exports = function ($) {
     window.H = window.H || {};
 
     //代理console.log
-    H.log = function(msg){
-        if(window['console']){
-            try{
-                console.log.call(console, '%c' + msg, 'font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;');
-            }catch(e){
-                console.log(msg);
+    H.log = function (msg) {
+        if (typeof window['console'] != 'undefined') {
+            try {
+                window.console.log.call(window.console, '%c' + msg, 'font-size:14px; color:#C0A; font-family:微软雅黑; text-shadow:0px 1px 2px #ff0;');
+            } catch (e) {
+                window.console.log(msg);
             }
         }
     };
@@ -3563,7 +3587,7 @@ module.exports = function ($) {
         }
     });
 
-    H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo 找到');
+    H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
 
 })(window, jQuery);
 

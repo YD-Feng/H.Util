@@ -20,7 +20,7 @@ var Storage = function () {
             expires.setDate(expires.getDate() + 365);
             _this.storage.expires = expires.toUTCString();
         } catch(e) {
-            alert('Storage Object create error!');
+            console && console.info('Storage Object create error!');
         }
     }
 };

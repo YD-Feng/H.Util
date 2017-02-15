@@ -2013,7 +2013,7 @@ $.extend(Datepicker.prototype, {
 	 */
 	_getInst: function(target) {
 		try {
-			return $.data(target, "datepicker");
+			return window.$.data(target, "datepicker");
 		}
 		catch (err) {
 			throw "Missing instance data for this datepicker";
@@ -4331,26 +4331,24 @@ var selectmenu = $.widget( "ui.selectmenu", {
 		this.element.hide();
 
 		// Create button
-		this.button = $( "<span>", {
-			"class": "ui-selectmenu-button ui-widget ui-state-default ui-corner-all",
-			tabindex: this.options.disabled ? -1 : 0,
-			id: this.ids.button,
-			role: "combobox",
+		this.button = $("<span>", {
+			"tabindex": this.options.disabled ? -1 : 0,
+			"id": this.ids.button,
+			"role": "combobox",
 			"aria-expanded": "false",
 			//edit by czf "aria-autocomplete": "list",
 			"aria-owns": this.ids.menu,
 			"aria-haspopup": "true"
 		})
+            .addClass("ui-selectmenu-button ui-widget ui-state-default ui-corner-all")
 			.insertAfter( this.element );
 
-		$( "<span>", {
-			"class": "ui-icon " + this.options.icons.button
-		})
+		$("<span>")
+            .addClass("ui-icon " + this.options.icons.button)
 			.prependTo( this.button );
 
-		this.buttonText = $( "<span>", {
-			"class": "ui-selectmenu-text"
-		})
+		this.buttonText = $("<span>")
+            .addClass("ui-selectmenu-text")
 			.appendTo( this.button );
 
 		this._setText( this.buttonText, this.element.find( "option:selected" ).text() );
@@ -4380,9 +4378,8 @@ var selectmenu = $.widget( "ui.selectmenu", {
 		});
 
 		// Wrap menu
-		this.menuWrap = $( "<div>", {
-			"class": "ui-selectmenu-menu ui-front"
-		})
+		this.menuWrap = $("<div>")
+            .addClass("ui-selectmenu-menu ui-front")
 			.append( this.menu )
 			.appendTo( this._appendTo() );
 
@@ -4530,13 +4527,12 @@ var selectmenu = $.widget( "ui.selectmenu", {
 
 		$.each( items, function( index, item ) {
 			if ( item.optgroup !== currentOptgroup ) {
-				$( "<li>", {
-					"class": "ui-selectmenu-optgroup ui-menu-divider" +
-						( item.element.parent( "optgroup" ).prop( "disabled" ) ?
-							" ui-state-disabled" :
-							"" ),
+				$("<li>", {
 					text: item.optgroup
 				})
+                    .addClass("ui-selectmenu-optgroup ui-menu-divider" +
+                        ( item.element.parent( "optgroup" ).prop( "disabled" ) ? " ui-state-disabled" : "" )
+                    )
 					.appendTo( ul );
 
 				currentOptgroup = item.optgroup;
