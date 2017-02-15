@@ -70,6 +70,7 @@
   border-radius: 3px;
   padding: 2px 5px;
   cursor: pointer;
+  font-size: 12px;
 }
 .ui-pager-btn:active {
   background: #ab382a;
