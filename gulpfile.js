@@ -12,7 +12,7 @@ var jsList = ['Util', 'LazyLoad', 'Dialog', 'Jquery-ui'],
 
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
+    cleancss = require('gulp-clean-css'),
 
     util = require('gulp-util'),
     notify = require('gulp-notify'),
@@ -113,7 +113,7 @@ gulp.task('css:target', function () {
         .pipe(concat('H.css'))
         .pipe(gulp.dest('dev/css'))
         .pipe(rename('H.min.css'))
-        .pipe(minifycss({
+        .pipe(cleancss({
             compatibility: 'ie7'//类型：String 默认：''or'*' [启用兼容模式； 'ie7'：IE7兼容模式，'ie8'：IE8兼容模式，'*'：IE9+兼容模式]
         }))
         .pipe(gulp.dest('dist/css'));
