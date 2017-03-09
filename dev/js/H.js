@@ -1948,6 +1948,45 @@ module.exports = template;
 
 },{}],16:[function(require,module,exports){
 'use strict';
+var Toast = {
+    template: '<div id="J-h-toast" class="ui-toast"></div>',
+    timeout: -1,
+    show: function (msg, last) {
+        var _this = this,
+            $toast = $('#J-h-toast'),
+            ml, mt;
+
+        if ($toast.length == 0) {
+            $toast = $(_this.template);
+            $toast.appendTo('body');
+        } else {
+            _this.hide();
+        }
+
+        $toast.html(msg);
+
+        ml = -1 * $toast.outerWidth() / 2;
+        mt = -1 * $toast.outerHeight() / 2;
+
+        $toast.css({
+            marginLeft: ml,
+            marginTop: mt
+        }).show();
+
+        _this.timeout = setTimeout(function () {
+            _this.hide();
+        }, (typeof last == 'undefined' ? 3000 : last));
+    },
+    hide: function () {
+        clearTimeout(this.timeout);
+        $('#J-h-toast').hide();
+    }
+};
+
+module.exports = Toast;
+
+},{}],17:[function(require,module,exports){
+'use strict';
 var tooltips = {};
 
 /*
@@ -2167,7 +2206,7 @@ tooltips.hide = function ($target) {
 
 module.exports = tooltips;
 
-},{"../Template/Template":15}],17:[function(require,module,exports){
+},{"../Template/Template":15}],18:[function(require,module,exports){
 'use strict';
 /*
  * 参数说明：
@@ -2194,7 +2233,7 @@ var transformParamsToJSON = function (paramsStr) {
 
 module.exports = transformParamsToJSON;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     //修复 IE8 以下不支持 indexOf 导致产生错误的 bug
@@ -3336,7 +3375,7 @@ module.exports = function ($) {
     * */
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     // 验证规则
@@ -3517,7 +3556,7 @@ module.exports = function ($) {
     $.validationEngineLanguage.newLang();
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 (function(window, $){
     //实例
@@ -3528,6 +3567,7 @@ module.exports = function ($) {
     var JsLoader = require('./Util_modules/JsLoader/JsLoader');
     var Tooltips = require('./Util_modules/Tooltips/Tooltips');
     var Loading = require('./Util_modules/Loading/Loading');
+    var Toast = require('./Util_modules/Toast/Toast');
 
     //类
     var Switchable = require('./Util_modules/Switchable/Switchable');
@@ -3568,6 +3608,7 @@ module.exports = function ($) {
     H.Tooltips = Tooltips;
     H.Cookie = Cookie;
     H.Loading = Loading;
+    H.Toast = Toast;
 
     //类
     H.Switchable = Switchable;
@@ -3587,24 +3628,11 @@ module.exports = function ($) {
     ValidationEngine($);
     ValidationEngineLanguage($);
 
-    $.ajaxSetup({
-        beforeSend: function () {
-            if (this.showLoadingMask) {
-                H.Loading.show();
-            }
-        },
-        complete: function () {
-            if (this.showLoadingMask) {
-                H.Loading.hide();
-            }
-        }
-    });
-
     H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
 
 })(window, jQuery);
 
-},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/LazyDom/LazyDom":6,"./Util_modules/Loading/Loading":7,"./Util_modules/Monitor/Monitor":10,"./Util_modules/Pager/Pager":11,"./Util_modules/Storage/Storage":12,"./Util_modules/SubStrByCode/SubStrByCode":13,"./Util_modules/Switchable/Switchable":14,"./Util_modules/Template/Template":15,"./Util_modules/Tooltips/Tooltips":16,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":17,"./Util_modules/ValidationEngine/ValidationEngine":18,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":19}]},{},[20])
+},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/LazyDom/LazyDom":6,"./Util_modules/Loading/Loading":7,"./Util_modules/Monitor/Monitor":10,"./Util_modules/Pager/Pager":11,"./Util_modules/Storage/Storage":12,"./Util_modules/SubStrByCode/SubStrByCode":13,"./Util_modules/Switchable/Switchable":14,"./Util_modules/Template/Template":15,"./Util_modules/Toast/Toast":16,"./Util_modules/Tooltips/Tooltips":17,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":18,"./Util_modules/ValidationEngine/ValidationEngine":19,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":20}]},{},[21])
 /*
  * Lazy Load - jQuery plugin for lazy loading images
  *

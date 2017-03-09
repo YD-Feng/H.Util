@@ -8,6 +8,7 @@
     var JsLoader = require('./Util_modules/JsLoader/JsLoader');
     var Tooltips = require('./Util_modules/Tooltips/Tooltips');
     var Loading = require('./Util_modules/Loading/Loading');
+    var Toast = require('./Util_modules/Toast/Toast');
 
     //类
     var Switchable = require('./Util_modules/Switchable/Switchable');
@@ -48,6 +49,7 @@
     H.Tooltips = Tooltips;
     H.Cookie = Cookie;
     H.Loading = Loading;
+    H.Toast = Toast;
 
     //类
     H.Switchable = Switchable;
@@ -66,19 +68,6 @@
     //Jquery方法扩展
     ValidationEngine($);
     ValidationEngineLanguage($);
-
-    $.ajaxSetup({
-        beforeSend: function () {
-            if (this.showLoadingMask) {
-                H.Loading.show();
-            }
-        },
-        complete: function () {
-            if (this.showLoadingMask) {
-                H.Loading.hide();
-            }
-        }
-    });
 
     H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
 
