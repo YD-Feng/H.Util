@@ -1384,10 +1384,10 @@ var subStrByCode = function (str, codeLength, flag, EnglishType) {
             if (EnglishType) {
                 _endFlag++;
             }
-            if (curCodeLength == codeLength) {
+            if (curCodeLength == (codeLength - 3)) {
                 _str = _str.substring(0, _endFlag);
                 return true;
-            } else if (curCodeLength > codeLength) {
+            } else if (curCodeLength > (codeLength - 3)) {
                 _str = _str.substring(0, _endFlag - 1);
                 return true;
             }
