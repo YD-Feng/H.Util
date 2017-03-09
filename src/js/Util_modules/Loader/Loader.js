@@ -18,10 +18,11 @@ var Loader = function () {
  * 参数说明：
  * module 【Obj】【可以传多个】
  * 每个 module 对象包含了4个属性：
+ * type 【String】 必传，要引入的模块类型，取值范围：“js”，“css”，“html”
  * name 【String】 必传，要引入 JS 的模块名
  * url 【String】 必传，要引入 JS 的路径
  * requires 【String Array】 可选，此脚本依赖的模块（所依赖模块的模块名组成的集合）
- * callBack 【Function】 回调函数，脚本加载完后执行的回调函数
+ * callback 【Function】 回调函数，脚本加载完后执行的回调函数
  * */
 Loader.prototype.get = function () {
     var _this = this;
@@ -63,17 +64,17 @@ Loader.prototype.get = function () {
 Loader.prototype._execute = function (module) {
     var _this = this;
 
-    if (module.type == 'js') {
+    if (module.type == 'js' || module.type == 'html') {
         $.ajax({
             url: module.url,
-            dataType: 'script',
+            dataType: module.type == 'js' ? 'script' : module.type,
             context: {
                 name: module.name
             },
             cache: true,
             crossDomain: true,
-            success: function () {
-                _this._loadSuccess(module);
+            success: function (res) {
+                _this._loadSuccess(module, res);
             }
         });
     } else if (module.type == 'css') {
@@ -94,15 +95,15 @@ Loader.prototype._execute = function (module) {
  * module 【Obj】
  * 参考 get 方法关于 module 对象的详解
  * */
-Loader.prototype._loadSuccess = function (module) {
+Loader.prototype._loadSuccess = function (module, res) {
     var _this = this;
 
     //标记模块已加载
     _this.loaded[module.name] = 1;
     delete _this.queue[module.name];
 
-    if (typeof module.callBack != 'undefined' && typeof module.callBack == 'function') {
-        module.callBack();
+    if (typeof module.callback != 'undefined' && typeof module.callback == 'function') {
+        module.callback( (typeof res == 'string' && module.type == 'html') ? res : undefined);
     }
 
     _this.Monitor.trigger('Loader_Success_' + module.name);

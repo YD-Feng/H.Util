@@ -5,7 +5,7 @@
     var Storage = require('./Util_modules/Storage/Storage');
     var Cookie = require('./Util_modules/Cookie/Cookie');
     var ItvEvents = require('./Util_modules/ItvEvents/ItvEvents');
-    var JsLoader = require('./Util_modules/JsLoader/JsLoader');
+    var Loader = require('./Util_modules/Loader/Loader');
     var Tooltips = require('./Util_modules/Tooltips/Tooltips');
     var Loading = require('./Util_modules/Loading/Loading');
     var Toast = require('./Util_modules/Toast/Toast');
@@ -46,7 +46,7 @@
     H.Monitor = new Monitor();
     H.Storage = new Storage();
     H.ItvEvents = new ItvEvents();
-    H.JsLoader = new JsLoader();
+    H.Loader = new Loader();
     H.Tooltips = Tooltips;
     H.Cookie = Cookie;
     H.Loading = Loading;
