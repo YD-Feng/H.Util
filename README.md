@@ -26,6 +26,12 @@ H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<
 <br />
 
 ##H.Util 所包含的工具有：
+* **[Loading](#Loading)**<br />
+一个 loading 状态展示效果，适用于后台系统，带遮罩层，对于样式要求较高的场景建议直接移除掉<br /><br />
+* **[Toast](#Toast)**<br />
+很常规的信息提示工具<br /><br />
+* **[ParsePrice](#ParsePrice)**<br />
+价格转换器，将传入的数据转成价格（如：1.00，12.00）这种格式，只对【数字字符串】和【数字】生效<br /><br />
 * **[Monitor](#Monitor)**<br />
 监听器，可以监听信息，并在接收到信息后触发指定的回调函数。也可以理解为一种脱离 DOM 的事件定义和处理工具<br /><br />
 * **[Storage](#Storage)**<br />
@@ -33,7 +39,7 @@ H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<
 * **[ItvEvents](#ItvEvents)**<br />
 事件定频器，它的作用是，使得绑定在指定元素上的指定事件的触发函数产生一定执行时间间隔，避免高频率触发事件时，函数随之高频率执行，以致影响应用的运行速度<br /><br />
 * **[Loader](#Loader)**<br />
-异步加载器，可以异步加载静态资源（js，css），防止 DOM 加载阻塞，另外还支持依赖关系定义，保证脚本按照需要顺序加载<br /><br />
+异步加载器，可以异步加载静态资源（js，css，html），防止 DOM 加载阻塞，另外还支持依赖关系定义，保证脚本按照需要顺序加载<br /><br />
 * **[Pager](#Pager)**<br />
 分页生成器，通过异步请求的方式生成列表分页时非常有用<br /><br />
 * **[Template](#Template)**<br />
@@ -57,6 +63,78 @@ H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<
 * **[ValidationEngine](#ValidationEngine)**<br />
 表单验证引擎，推崇验证错误提示的渲染最大自由化，所以验证错误提示的具体具体实现需要完全有用户自己编写，工具只提供验证不通过的回调。好不好用见仁见智，对于界面要求不高的项目，可能用着会很麻烦，但对于界面有苛刻要求的项目，它的优势会非常明显<br />
 <br />
+
+<br />
+
+
+#<a name="Loading"></a>H.Loading
+H.Loading 对象提供了2个方法：<br />
+**H.Loading.show、H.Loading.hide**<br />
+<br /><br />
+下面是这个方法的调用实例，注释是参数说明：
+```
+/*
+ * H.Loading.show();
+ * 参数说明：
+ * 无参数
+ * */
+ 
+H.Loading.show();
+```
+
+```
+/*
+ * H.Loading.hide();
+ * 参数说明：
+ * 无参数
+ * */
+
+H.Loading.hide();
+```
+
+<br />
+
+#<a name="Toast"></a>H.Toast
+H.Toast 对象提供了2个方法：<br />
+**H.Toast.show、H.Toast.hide**<br />
+<br /><br />
+下面是这个方法的调用实例，注释是参数说明：
+```
+/*
+ * H.Toast.show(msg[, last]);
+ * 参数说明：
+ * msg 【String|Number】 提示信息
+ * last 【Number】 提示框停留时长，可缺省，默认为：3000，单位：毫秒
+ * */
+ 
+H.Toast.show('提示语！');
+```
+
+```
+/*
+ * H.Toast.hide();
+ * 参数说明：
+ * 无参数
+ * */
+
+H.Toast.hide();
+```
+
+<br />
+
+#<a name="ParsePrice"></a>H.parsePrice
+H.parsePrice 本身就是一个静态方法：<br />
+<br /><br />
+下面是调用实例，注释是参数说明：
+```
+/*
+ * H.parsePrice(value)
+ * 参数说明：
+ * value 【All】 需要转换成价格的值，可以是任意数据类型
+ * */
+
+H.parsePrice('1200');
+```
 
 <br />
 
@@ -195,11 +273,11 @@ H.Loader 对象提供了1个方法：<br />
  * 参数说明：
  * module 【Obj】【可以传多个,表示加载多个脚本】
  * 每个 module 对象包含了4个属性：
- * type 【String】 必传，要引入的模块类型，取值范围 "js"、"css"
+ * type 【String】 必传，要引入的模块类型，取值范围 "js"、"css"、"html"
  * name 【String】 必传，要引入的模块名
  * url 【String】 必传，要引入的模块路径
  * requires 【String Array】 可选，此脚本依赖的模块（所依赖模块的【模块名】（也就是 name）组成的集合）
- * callBack 【Function】 回调函数，脚本加载完后执行的回调函数
+ * callback 【Function】 回调函数，脚本加载完后执行的回调函数
  * */
 
 //加载单个脚本
@@ -429,7 +507,7 @@ H.transformParamsToJSON 本身就是一个静态方法：<br />
  * 注意：paramsStr 的格式必须为 "?orderId=44412000008&srcOrderId=123456789001&operationType=edit&orderType=30" 这样的格式。前面的 ? 可有可无，可以只有参数名，没有参数值
  * */
 
-H.transformParamsToJSON('?orderId=AD160115144412000008&srcOrderId=src123456789001&operationType=edit&orderType=30')
+H.transformParamsToJSON('?orderId=AD160115144412000008&srcOrderId=src123456789001&operationType=edit&orderType=30');
 ```
 
 <br />
