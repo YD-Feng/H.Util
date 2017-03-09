@@ -1,4 +1,4 @@
-var jsList = ['Util', 'LazyLoad', 'Dialog', 'Jquery-ui'],
+var jsList = ['Util', 'LazyLoad', 'Dialog'/*, 'Jquery-ui'*/],
     cssList = ['Jquery-ui', 'H-ui', 'Pager', 'Dialog'],
 
     gulp = require('gulp'),

@@ -20,6 +20,7 @@
     var GetStrCodeLength = require('./Util_modules/GetStrCodeLength/GetStrCodeLength');
     var SubStrByCode = require('./Util_modules/SubStrByCode/SubStrByCode');
     var TransformParamsToJSON = require('./Util_modules/TransformParamsToJSON/TransformParamsToJSON');
+    var ParsePrice = require('./Util_modules/ParsePrice/ParsePrice');
 
     //原生对象方法扩展
     var DateFormat = require('./Util_modules/DateFormat/DateFormat');
@@ -61,6 +62,7 @@
     H.getStrCodeLength = GetStrCodeLength;
     H.subStrByCode = SubStrByCode;
     H.transformParamsToJSON = TransformParamsToJSON;
+    H.parsePrice = ParsePrice;
 
     //原生对象方法扩展
     DateFormat();
@@ -69,6 +71,6 @@
     ValidationEngine($);
     ValidationEngineLanguage($);
 
-    H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
+    //H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
 
 })(window, jQuery);

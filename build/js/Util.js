@@ -623,7 +623,7 @@ LazyDom.prototype.destroy = function() {
 
 module.exports = LazyDom;
 
-},{"../Template/Template":15}],7:[function(require,module,exports){
+},{"../Template/Template":16}],7:[function(require,module,exports){
 'use strict';
 var Loading = {
     template: '<div id="J-h-loading" class="ui-loading"></div>',
@@ -1263,7 +1263,22 @@ Pager.prototype.bindEvents = function () {
 
 module.exports = Pager;
 
-},{"../Template/Template":15}],12:[function(require,module,exports){
+},{"../Template/Template":16}],12:[function(require,module,exports){
+'use strict';
+/*
+ * 参数说明：
+ * value 【All】 需要转换成价格的值，可以是任意数据类型
+ * */
+var parsePrice = function (value) {
+    if (typeof value == 'undefined') return;
+    var _value = value * 1;
+    if (isNaN(_value)) return;
+    return _value.toFixed(2);
+};
+
+module.exports = parsePrice;
+
+},{}],13:[function(require,module,exports){
 'use strict';
 /* === Class Storage begin === */
 var Storage = function () {
@@ -1358,7 +1373,7 @@ Storage.prototype.remove = function (key) {
 
 module.exports = Storage;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 /*
  * 根据字符长度截字方法
@@ -1427,7 +1442,7 @@ var subStrByCode = function (str, codeLength, flag, EnglishType) {
 
 module.exports = subStrByCode;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 //class Switchable 【依赖于Jquery】
 var Switchable = function (options) {
@@ -1863,7 +1878,7 @@ Switchable.prototype.next = function () {
 
 module.exports = Switchable;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 /*
  * 模板编译方法
@@ -1946,7 +1961,7 @@ var template = function (text, data) {
 
 module.exports = template;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 var Toast = {
     template: '<div id="J-h-toast" class="ui-toast"></div>',
@@ -1985,7 +2000,7 @@ var Toast = {
 
 module.exports = Toast;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 var tooltips = {};
 
@@ -2206,7 +2221,7 @@ tooltips.hide = function ($target) {
 
 module.exports = tooltips;
 
-},{"../Template/Template":15}],18:[function(require,module,exports){
+},{"../Template/Template":16}],19:[function(require,module,exports){
 'use strict';
 /*
  * 参数说明：
@@ -2233,7 +2248,7 @@ var transformParamsToJSON = function (paramsStr) {
 
 module.exports = transformParamsToJSON;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     //修复 IE8 以下不支持 indexOf 导致产生错误的 bug
@@ -3375,7 +3390,7 @@ module.exports = function ($) {
     * */
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 module.exports = function ($) {
     // 验证规则
@@ -3556,7 +3571,7 @@ module.exports = function ($) {
     $.validationEngineLanguage.newLang();
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 (function(window, $){
     //实例
@@ -3579,6 +3594,7 @@ module.exports = function ($) {
     var GetStrCodeLength = require('./Util_modules/GetStrCodeLength/GetStrCodeLength');
     var SubStrByCode = require('./Util_modules/SubStrByCode/SubStrByCode');
     var TransformParamsToJSON = require('./Util_modules/TransformParamsToJSON/TransformParamsToJSON');
+    var ParsePrice = require('./Util_modules/ParsePrice/ParsePrice');
 
     //原生对象方法扩展
     var DateFormat = require('./Util_modules/DateFormat/DateFormat');
@@ -3620,6 +3636,7 @@ module.exports = function ($) {
     H.getStrCodeLength = GetStrCodeLength;
     H.subStrByCode = SubStrByCode;
     H.transformParamsToJSON = TransformParamsToJSON;
+    H.parsePrice = ParsePrice;
 
     //原生对象方法扩展
     DateFormat();
@@ -3628,8 +3645,8 @@ module.exports = function ($) {
     ValidationEngine($);
     ValidationEngineLanguage($);
 
-    H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
+    //H.log('欢迎使用 H 工具库，相关 API 可到 【https://github.com/YD-Feng/H.Util】 查看 readME 或 查看 demo');
 
 })(window, jQuery);
 
-},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/LazyDom/LazyDom":6,"./Util_modules/Loading/Loading":7,"./Util_modules/Monitor/Monitor":10,"./Util_modules/Pager/Pager":11,"./Util_modules/Storage/Storage":12,"./Util_modules/SubStrByCode/SubStrByCode":13,"./Util_modules/Switchable/Switchable":14,"./Util_modules/Template/Template":15,"./Util_modules/Toast/Toast":16,"./Util_modules/Tooltips/Tooltips":17,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":18,"./Util_modules/ValidationEngine/ValidationEngine":19,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":20}]},{},[21])
+},{"./Util_modules/Cookie/Cookie":1,"./Util_modules/DateFormat/DateFormat":2,"./Util_modules/GetStrCodeLength/GetStrCodeLength":3,"./Util_modules/ItvEvents/ItvEvents":4,"./Util_modules/JsLoader/JsLoader":5,"./Util_modules/LazyDom/LazyDom":6,"./Util_modules/Loading/Loading":7,"./Util_modules/Monitor/Monitor":10,"./Util_modules/Pager/Pager":11,"./Util_modules/ParsePrice/ParsePrice":12,"./Util_modules/Storage/Storage":13,"./Util_modules/SubStrByCode/SubStrByCode":14,"./Util_modules/Switchable/Switchable":15,"./Util_modules/Template/Template":16,"./Util_modules/Toast/Toast":17,"./Util_modules/Tooltips/Tooltips":18,"./Util_modules/TransformParamsToJSON/TransformParamsToJSON":19,"./Util_modules/ValidationEngine/ValidationEngine":20,"./Util_modules/ValidationEngine/ValidationEngineLanguageCN":21}]},{},[22])
