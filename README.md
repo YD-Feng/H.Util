@@ -1,5 +1,5 @@
 ﻿#项目简介<br />
-H.Util项目中包含了 H.UI、H.Util、LazyLoad、H.Dialog 四部分<br />
+H.Util项目中包含了 H.UI、H.Util、LazyLoad、H.Dialog、Messenger 四部分<br />
 项目最终生产两个主要文件：H.min.css 和 H.min.js，它们是可以定制的<br />
 通过修改 gulpfile 里的 cssList 和 jsList 变量，可以控制生成的文件包含哪部分<br />
 这样就可以根据实际项目需要来引入必要的模块<br />
@@ -13,6 +13,8 @@ H.UI 是集各家所长所诞生出来的产物<br />
 它本着解决最基础的问题而生，因此它的功能简单且专注<br />
 在它里面没看似很叼的栅格系统，也没有酷炫的动画效果类，它只实现了按钮，输入框等一些最基本的原件样式<br />
 具体用法和实际效果请移步运行 demo 查看<br />
+其中，下拉框，日期选择器，拖动条(包含 css 和 js)，拖动排序（只包含 js）四项使用了 Jquery-UI 提供的相关模块<br />
+它们的 Api 都可以直接去 Jquery-UI 官网查看<br />
 
 
 <br /><br /><br />
@@ -599,6 +601,12 @@ ValidationEngine 是一个 jquery 同名插件的轻量化版本，具体使用�
 
 #LazyLoad
 一个 jquery 插件，官方网站：[http://www.appelsiini.net/projects/lazyload](http://www.appelsiini.net/projects/lazyload)<br />
+
+<br /><br /><br />
+
+#Messenger
+一个跨文档通信（跨iframe，跨域iframe之间通信）解决方案，非常适用于系统性质的网站或跨站合作的场景<br />
+官方gitHub：https://github.com/biqing/MessengerJS
 
 <br /><br /><br />
 
