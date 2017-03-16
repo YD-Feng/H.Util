@@ -69,7 +69,7 @@ H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<
 <br />
 
 
-#<a name="Loading"></a>H.Loading
+<a name="Loading"></a>#H.Loading
 H.Loading 对象提供了2个方法：<br />
 **H.Loading.show、H.Loading.hide**<br />
 <br /><br />
@@ -96,7 +96,7 @@ H.Loading.hide();
 
 <br />
 
-#<a name="Toast"></a>H.Toast
+<a name="Toast"></a>#H.Toast
 H.Toast 对象提供了2个方法：<br />
 **H.Toast.show、H.Toast.hide**<br />
 <br /><br />
@@ -124,7 +124,7 @@ H.Toast.hide();
 
 <br />
 
-#<a name="ParsePrice"></a>H.parsePrice
+<a name="ParsePrice"></a>#H.parsePrice
 H.parsePrice 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -140,7 +140,7 @@ H.parsePrice('1200');
 
 <br />
 
-#<a name="Monitor"></a>H.Monitor
+<a name="Monitor"></a>#H.Monitor
 H.Monitor 对象提供了3个方法：<br />
 **H.Monitor.listen、H.Monitor.trigger、H.Monitor.unListen**<br />
 <br /><br />
@@ -191,7 +191,7 @@ H.Monitor.unListen('getData');
 
 <br />
 
-#<a name="Storage"></a>H.Storage
+<a name="Storage"></a>#H.Storage
 H.Storage 对象提供了3个方法：<br />
 **H.Storage.get、H.Storage.set、H.Storage.remove**<br />
 <br /><br />
@@ -229,7 +229,7 @@ H.Storage.remove('myStorage');
 
 <br />
 
-#<a name="ItvEvents"></a>H.ItvEvents
+<a name="ItvEvents"></a>#H.ItvEvents
 H.ItvEvents 对象提供了2个方法：<br />
 **H.ItvEvents.addEvent、H.ItvEvents.removeEvent**<br />
 <br /><br />
@@ -264,7 +264,7 @@ H.ItvEvents.removeEvent($(window), 'resize', 'resetSomeThing');
 
 <br />
 
-#<a name="Loader"></a>H.Loader
+<a name="Loader"></a>#H.Loader
 H.Loader 对象提供了1个方法：<br />
 **H.Loader.get**<br />
 <br /><br />
@@ -312,7 +312,7 @@ H.Loader.get({
 
 <br />
 
-#<a name="Pager"></a>H.Pager
+<a name="Pager"></a>#H.Pager
 H.Pager 是一个类，能生产多个实例。H.Pager 对象提供了1个方法：<br />
 **pagerObj.render**<br />
 <br /><br />
@@ -361,7 +361,7 @@ pagerA.render({
 
 <br />
 
-#<a name="Template"></a>H.template
+<a name="Template"></a>#H.template
 H.template 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -393,7 +393,7 @@ H.template($('#J-tpl-a').html(), {
 
 <br />
 
-#<a name="Tooltips"></a>H.Tooltips
+<a name="Tooltips"></a>#H.Tooltips
 H.Tooltips 对象包含3个方法：<br />
 **H.Tooltips.create、H.Tooltips.show、H.Tooltips.hide**<br />
 <br /><br />
@@ -461,7 +461,7 @@ H.Tooltips.hide($('#J-tooltips-dom'));
 
 <br />
 
-#<a name="GetStrCodeLength"></a>H.getStrCodeLength
+<a name="GetStrCodeLength"></a>#H.getStrCodeLength
 H.getStrCodeLength 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -477,7 +477,7 @@ H.getStrCodeLength('1000米到底有多长')
 
 <br />
 
-#<a name="SubStrByCode"></a>H.subStrByCode
+<a name="SubStrByCode"></a>#H.subStrByCode
 H.subStrByCode 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -497,7 +497,7 @@ H.subStrByCode('超长的东东1律kaca掉~~~超长的东东1律kaca掉~~~', 20)
 
 <br />
 
-#<a name="TransformParamsToJSON"></a>H.transformParamsToJSON
+<a name="TransformParamsToJSON"></a>#H.transformParamsToJSON
 H.transformParamsToJSON 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -514,7 +514,7 @@ H.transformParamsToJSON('?orderId=AD160115144412000008&srcOrderId=src12345678900
 
 <br />
 
-#<a name="DateFormat"></a>DateObj.format
+<a name="DateFormat"></a>#DateObj.format
 DateObj.format 是对 Date 对象的方法扩展：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -541,12 +541,12 @@ now.format('yyyy-MM-dd');
 
 <br />
 
-#<a name="Switchable"></a>H.Switchable
+<a name="Switchable"></a>#H.Switchable
 具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
 
 <br />
 
-#<a name="Cookie"></a>H.Cookie
+<a name="Cookie"></a>#H.Cookie
 H.Cookie 对象提供了3个方法：<br />
 **H.Cookie.get、H.Cookie.set、H.Cookie.remove**<br />
 <br /><br />
@@ -589,12 +589,12 @@ H.Cookie.remove('myCookie');
 
 <br />
 
-#<a name="LazyDom"></a>H.LazyDom
+<a name="LazyDom"></a>#H.LazyDom
 具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
 
 <br />
 
-#<a name="ValidationEngine"></a>ValidationEngine
+<a name="ValidationEngine"></a>#ValidationEngine
 ValidationEngine 是一个 jquery 同名插件的轻量化版本，具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
 
 <br /><br /><br />
