@@ -60,10 +60,10 @@ ItvEvents.prototype.itvTrigger = function (eventName, fn, itvTime, fnContextObj,
 
     if (curTriggerTime - _this.lastTriggerTime[eventName] > itvTime) {
         _this.lastTriggerTime[eventName] = curTriggerTime;
-        fn.call(fnContextObj);
+        fn.call(fnContextObj, event);
     } else {
         _this.timeOut[eventName] = setTimeout(function () {
-            fn.call(fnContextObj);
+            fn.call(fnContextObj, event);
         }, itvTime);
     }
 };
