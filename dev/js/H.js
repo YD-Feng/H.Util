@@ -169,9 +169,7 @@ ItvEvents.prototype.addEvent = function ($el, eventType, eventName, fn, itvTime)
     _this.timeOut[eventName] = null;
 
     $el.on(eventType + '.' + eventName, function (e) {
-        _this.itvTrigger(eventName, function () {
-            fn(e);
-        }, itvTime, this);
+        _this.itvTrigger(eventName, fn, itvTime, this, e);
     });
 };
 
@@ -195,8 +193,9 @@ ItvEvents.prototype.removeEvent = function ($el, eventType, eventName) {
  * eventName 【Function】 事件触发时要执行的函数
  * itvTime 【Int】 事件被连续触发时，对应的函数的执行间隔
  * fnContextObj 【Obj】 事件触发时所执行函数的上下文关系变量
+ * event 【Obj】 事件对象
  * */
-ItvEvents.prototype.itvTrigger = function (eventName, fn, itvTime, fnContextObj) {
+ItvEvents.prototype.itvTrigger = function (eventName, fn, itvTime, fnContextObj, event) {
     var _this = this,
         curTriggerTime = +new Date();   //当前要触发事件的时间点
 
