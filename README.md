@@ -1,5 +1,5 @@
-﻿#项目简介<br />
-H.Util项目中包含了 H.UI、H.Util、LazyLoad、H.Dialog 四部分<br />
+# 项目简介<br />
+H.Util项目中包含了 H.UI、H.Util、LazyLoad、H.Dialog、Messenger 四部分<br />
 项目最终生产两个主要文件：H.min.css 和 H.min.js，它们是可以定制的<br />
 通过修改 gulpfile 里的 cssList 和 jsList 变量，可以控制生成的文件包含哪部分<br />
 这样就可以根据实际项目需要来引入必要的模块<br />
@@ -7,17 +7,19 @@ H.Util 部分也可以细化定制，但这就需要修改根目录下的 src/js
 这需要修改者本身有一丢丢 JS 功底，但不需要很高要求，因为这个库本身就是走简而实用路线，不走高大上路线<br />
 <br />
 
-#H.UI
+# H.UI
 H.UI 是集各家所长所诞生出来的产物<br />
 融合了 bootstrap、VUI（出自唯品会）、Jquery-UI、以及 H.UI 本身的原创成分<br />
 它本着解决最基础的问题而生，因此它的功能简单且专注<br />
 在它里面没看似很叼的栅格系统，也没有酷炫的动画效果类，它只实现了按钮，输入框等一些最基本的原件样式<br />
 具体用法和实际效果请移步运行 demo 查看<br />
+其中，下拉框，日期选择器，拖动条(包含 css 和 js)，拖动排序（只包含 js）四项使用了 Jquery-UI 提供的相关模块<br />
+它们的 Api 都可以直接去 Jquery-UI 官网查看<br />
 
 
 <br /><br /><br />
 
-#H.Util
+# H.Util
 H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<br />
 由于各个工具之间存在着相互依赖关系，所以就做成了一个工具集的形式<br />
 即便包含了很多小工具，它的大小依然只有50多K，而且还是未压缩状态<br />
@@ -25,7 +27,7 @@ H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<
 
 <br />
 
-##H.Util 所包含的工具有：
+## H.Util 所包含的工具有：
 * **[Loading](#Loading)**<br />
 一个 loading 状态展示效果，适用于后台系统，带遮罩层，对于样式要求较高的场景建议直接移除掉<br /><br />
 * **[Toast](#Toast)**<br />
@@ -67,7 +69,7 @@ H.Util 不是一个单一功能的插件，而是一系列轻量工具的集合<
 <br />
 
 
-#<a name="Loading"></a>H.Loading
+# <a name="Loading"></a>H.Loading
 H.Loading 对象提供了2个方法：<br />
 **H.Loading.show、H.Loading.hide**<br />
 <br /><br />
@@ -94,7 +96,7 @@ H.Loading.hide();
 
 <br />
 
-#<a name="Toast"></a>H.Toast
+# <a name="Toast"></a>H.Toast
 H.Toast 对象提供了2个方法：<br />
 **H.Toast.show、H.Toast.hide**<br />
 <br /><br />
@@ -122,7 +124,7 @@ H.Toast.hide();
 
 <br />
 
-#<a name="ParsePrice"></a>H.parsePrice
+<a name="ParsePrice"></a>#H.parsePrice
 H.parsePrice 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -138,7 +140,7 @@ H.parsePrice('1200');
 
 <br />
 
-#<a name="Monitor"></a>H.Monitor
+# <a name="Monitor"></a>H.Monitor
 H.Monitor 对象提供了3个方法：<br />
 **H.Monitor.listen、H.Monitor.trigger、H.Monitor.unListen**<br />
 <br /><br />
@@ -189,7 +191,7 @@ H.Monitor.unListen('getData');
 
 <br />
 
-#<a name="Storage"></a>H.Storage
+# <a name="Storage"></a>H.Storage
 H.Storage 对象提供了3个方法：<br />
 **H.Storage.get、H.Storage.set、H.Storage.remove**<br />
 <br /><br />
@@ -227,7 +229,7 @@ H.Storage.remove('myStorage');
 
 <br />
 
-#<a name="ItvEvents"></a>H.ItvEvents
+# <a name="ItvEvents"></a>H.ItvEvents
 H.ItvEvents 对象提供了2个方法：<br />
 **H.ItvEvents.addEvent、H.ItvEvents.removeEvent**<br />
 <br /><br />
@@ -262,7 +264,7 @@ H.ItvEvents.removeEvent($(window), 'resize', 'resetSomeThing');
 
 <br />
 
-#<a name="Loader"></a>H.Loader
+# <a name="Loader"></a>H.Loader
 H.Loader 对象提供了1个方法：<br />
 **H.Loader.get**<br />
 <br /><br />
@@ -310,7 +312,7 @@ H.Loader.get({
 
 <br />
 
-#<a name="Pager"></a>H.Pager
+# <a name="Pager"></a>H.Pager
 H.Pager 是一个类，能生产多个实例。H.Pager 对象提供了1个方法：<br />
 **pagerObj.render**<br />
 <br /><br />
@@ -359,7 +361,7 @@ pagerA.render({
 
 <br />
 
-#<a name="Template"></a>H.template
+# <a name="Template"></a>H.template
 H.template 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -391,7 +393,7 @@ H.template($('#J-tpl-a').html(), {
 
 <br />
 
-#<a name="Tooltips"></a>H.Tooltips
+# <a name="Tooltips"></a>H.Tooltips
 H.Tooltips 对象包含3个方法：<br />
 **H.Tooltips.create、H.Tooltips.show、H.Tooltips.hide**<br />
 <br /><br />
@@ -459,7 +461,7 @@ H.Tooltips.hide($('#J-tooltips-dom'));
 
 <br />
 
-#<a name="GetStrCodeLength"></a>H.getStrCodeLength
+# <a name="GetStrCodeLength"></a>H.getStrCodeLength
 H.getStrCodeLength 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -475,7 +477,7 @@ H.getStrCodeLength('1000米到底有多长')
 
 <br />
 
-#<a name="SubStrByCode"></a>H.subStrByCode
+# <a name="SubStrByCode"></a>H.subStrByCode
 H.subStrByCode 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -495,7 +497,7 @@ H.subStrByCode('超长的东东1律kaca掉~~~超长的东东1律kaca掉~~~', 20)
 
 <br />
 
-#<a name="TransformParamsToJSON"></a>H.transformParamsToJSON
+# <a name="TransformParamsToJSON"></a>H.transformParamsToJSON
 H.transformParamsToJSON 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -512,7 +514,7 @@ H.transformParamsToJSON('?orderId=AD160115144412000008&srcOrderId=src12345678900
 
 <br />
 
-#<a name="DateFormat"></a>DateObj.format
+# <a name="DateFormat"></a>DateObj.format
 DateObj.format 是对 Date 对象的方法扩展：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
@@ -539,12 +541,12 @@ now.format('yyyy-MM-dd');
 
 <br />
 
-#<a name="Switchable"></a>H.Switchable
+# <a name="Switchable"></a>H.Switchable
 具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
 
 <br />
 
-#<a name="Cookie"></a>H.Cookie
+# <a name="Cookie"></a>H.Cookie
 H.Cookie 对象提供了3个方法：<br />
 **H.Cookie.get、H.Cookie.set、H.Cookie.remove**<br />
 <br /><br />
@@ -587,22 +589,28 @@ H.Cookie.remove('myCookie');
 
 <br />
 
-#<a name="LazyDom"></a>H.LazyDom
+# <a name="LazyDom"></a>H.LazyDom
 具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
 
 <br />
 
-#<a name="ValidationEngine"></a>ValidationEngine
+# <a name="ValidationEngine"></a>ValidationEngine
 ValidationEngine 是一个 jquery 同名插件的轻量化版本，具体使用方法请直接查看 demo 及其注释，这里就不再列举<br />
 
 <br /><br /><br />
 
-#LazyLoad
+# LazyLoad
 一个 jquery 插件，官方网站：[http://www.appelsiini.net/projects/lazyload](http://www.appelsiini.net/projects/lazyload)<br />
 
 <br /><br /><br />
 
-#H.dialog
+# Messenger
+一个跨文档通信（跨iframe，跨域iframe之间通信）解决方案，非常适用于系统性质的网站或跨站合作的场景<br />
+官方gitHub：https://github.com/biqing/MessengerJS
+
+<br /><br /><br />
+
+# H.dialog
 原版官方文档：[http://aui.github.io/artDialog/doc/index.html](http://aui.github.io/artDialog/doc/index.html)
 如果例子中的属性配置不能满足需要，可参考原版官方文档
 
@@ -659,67 +667,67 @@ myDialog.showModal();
 
 dialog 初始化时可以传入一个对象，对象的属性就是配置项，下面是初始化配置项详解：
 
-###title 【String】
+### title 【String】
 弹窗标题
 <br /><br />
 
-###content 【String】
+### content 【String】
 弹窗内容
 <br /><br />
 
-###quickClose 【Bool】
+### quickClose 【Bool】
 是否点击空白处快速关闭
 <br /><br />
 
-###padding 【Int】
+### padding 【Int】
 弹窗内边距(当 title 属性没设置时，且 showCloseBtn 属性设置为 true 或者没设置【默认值就是 true】，padding 属性会被强制设置为 0)
 <br /><br />
 
-###width 【Int】
+### width 【Int】
 弹窗宽度(缺省时为自适应，但默认最大宽度为 1000)
 <br /><br />
 
-###height 【Int】
+### height 【Int】
 弹窗高度(缺省时为自适应，但默认最大高度为 600)
 <br /><br />
 
-###timeout 【Int】
+### timeout 【Int】
 多长时间后自动关闭（单位：毫秒）
 <br /><br />
 
-###backdropOpacity 【Number】
+### backdropOpacity 【Number】
 遮罩层透明度 (默认0.7)
 <br /><br />
 
-###onshow 【Function】
+### onshow 【Function】
 弹窗弹出后执行的回调
 <br /><br />
 
-###onremove 【Function】
+### onremove 【Function】
 弹窗移除后执行的回调（请与 onclose 区别开来，大多数情况下请用 onremove，只有在 removeFlag 设为 false 时，才用 onclose）
 <br /><br />
 
-###onclose 【Function】
+### onclose 【Function】
 弹窗关闭后执行的回调（请与 onclose 区别开来，大多数情况下请用 onremove，只有在 removeFlag 设为 false 时，才用 onclose）
 <br /><br />
 
-###showCloseBtn 【Bool】
+### showCloseBtn 【Bool】
 【高级选项】是否生成关闭按钮（当 title 属性没设置时，此属性才会生效，默认为 true，设置为 false 时，就不会为用户生成关闭按钮）
 <br /><br />
 
-###setMaxSize 【Bool】
+### setMaxSize 【Bool】
 【高级选项】是否指定弹窗的最大高度（默认为true，绝大多数情况下使用默认值即可，特殊情况下可设为false）
 <br /><br />
 
-###removeFlag 【Bool】
+### removeFlag 【Bool】
 【高级选项】关闭窗口时，是否销毁 dom，默认为 true。当设置为 false 时，quickClose 配置属性会强制设为 false （因为 quickClose 触发的关闭弹窗会把 dom 销毁）
 <br /><br />
 
-#基于 H.dialog 的其他方法
+# 基于 H.dialog 的其他方法
 以下的几个方法，是根据功能需求对 H.dialog 的再封装。
 下面一一列出这些方法的调用实例，以及参数说明：
 
-###H.alert（信息提示弹框）
+### H.alert（信息提示弹框）
 ```
 /*
 * 参数说明：
@@ -733,7 +741,7 @@ H.alert('一堆提示语', 1000, function () {
 });
 ```
 
-###H.confirm（确认信息弹框）
+### H.confirm（确认信息弹框）
 ```
 //确认信息弹框的 title 属性会被强制无效化
 var d = H.confirm({
@@ -754,7 +762,7 @@ var d = H.confirm({
 d.show();
 ```
 
-###H.frameBox（iframe弹框）
+### H.frameBox（iframe弹框）
 ```
 //iframe 弹框的尺寸会根据子页面的大小变化而变化，但最大也不大于配置中所设置的 width 和 height
 var d = H.frameBox({
