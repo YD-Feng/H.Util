@@ -124,7 +124,7 @@ H.Toast.hide();
 
 <br />
 
-<a name="ParsePrice"></a>#H.parsePrice
+# <a name="ParsePrice"></a>H.parsePrice
 H.parsePrice 本身就是一个静态方法：<br />
 <br /><br />
 下面是调用实例，注释是参数说明：
