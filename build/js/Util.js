@@ -1753,7 +1753,6 @@ Switchable.prototype.animate = function (type, i) {
         if (type.indexOf('slide') != -1) {
             options.panelDom.stop(true, false).animate(animateParam, 300, animateCallBack);
         } else {
-            console.info(options.curTarget);
             options.panelDom.children()
                 .eq((options.curTarget - 1) % count)
                 .fadeOut(300)
@@ -1807,7 +1806,6 @@ Switchable.prototype.animate = function (type, i) {
                 options.allowTrigger = true;
             });
         } else {
-            console.info(options.curTarget);
             options.panelDom.children()
                 .eq((options.curTarget - 1) % count)
                 .fadeOut(300)
