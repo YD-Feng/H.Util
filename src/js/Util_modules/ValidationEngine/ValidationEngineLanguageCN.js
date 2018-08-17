@@ -76,7 +76,7 @@ module.exports = function ($) {
                     alertText: '* 无效的电话号码'
                 },
                 mobile:{
-                    regex: /^[1][3-8]+\d{9}/,
+                    regex: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
                     alertText: '* 无效的手机号'
                 },
                 email: {
