@@ -13,14 +13,11 @@
   line-height: 1.428571429;
   color: #333;
   opacity: 0;
-  -webkit-transform: scale(0);
   transform: scale(0);
-  -webkit-transition: -webkit-transform 0.15s ease-in-out, opacity 0.15s ease-in-out;
   transition: transform 0.15s ease-in-out, opacity 0.15s ease-in-out;
 }
 .ui-popup-show .ui-dialog {
   opacity: 1;
-  -webkit-transform: scale(1);
   transform: scale(1);
 }
 .ui-popup-focus .ui-dialog {
@@ -239,8 +236,7 @@
   height: 0;
   overflow: hidden;
   color: #FF3FFF;
-  -webkit-filter: chroma(color=#FF3FFF);
-          filter: chroma(color=#FF3FFF);
+  filter: chroma(color=#FF3FFF);
   border: 8px dashed transparent;
 }
 .ui-popup-follow .ui-dialog-arrow-a,
@@ -347,22 +343,12 @@
 .ui-popup-right-bottom .ui-dialog-arrow-b {
   bottom: 15px;
 }
-@-webkit-keyframes ui-dialog-loading {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
 @keyframes ui-dialog-loading {
   0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 .ui-dialog-loading {
@@ -397,10 +383,8 @@
   box-shadow: 0 -10px 0 1px #ccc, 10px 0px #ccc, 0 10px #ccc, -10px 0 #ccc, -7px -7px 0 0.5px #ccc, 7px -7px 0 1.5px #ccc, 7px 7px #ccc, -7px 7px #ccc;
   -webkit-transform: rotate(360deg);
   -webkit-animation: ui-dialog-loading 1.5s infinite linear;
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-  -webkit-animation: ui-dialog-loading 1.5s infinite linear;
-          animation: ui-dialog-loading 1.5s infinite linear;
+  transform: rotate(360deg);
+  animation: ui-dialog-loading 1.5s infinite linear;
   display: none\9;
 }
 /*自定义样式*/

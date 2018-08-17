@@ -506,8 +506,7 @@ textarea.ui-text-small {
   top: 0;
   left: 0;
   content: '';
-  -webkit-transition: left .3s ease;
-          transition: left .3s ease;
+  transition: left .3s ease;
 }
 .ui-switch input[type=checkbox]:checked + .ui-switch-btn:before {
   background-color: #c90b37;
@@ -644,7 +643,6 @@ textarea.ui-text-small {
 .ui-tooltips {
   visibility: hidden;
   opacity: 0;
-  -webkit-transition: opacity ease-out 0.15s;
   transition: opacity ease-out 0.15s;
 }
 .ui-tooltips-close {
@@ -660,9 +658,7 @@ textarea.ui-text-small {
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   .ui-tooltips-close {
-    -webkit-transform: scale(0.83);
     transform: scale(0.83);
-    -webkit-transform-origin: right top;
     transform-origin: right top;
   }
 }
@@ -807,7 +803,6 @@ textarea.ui-text-small {
 .z-ui-tooltips-in .ui-tooltips {
   visibility: visible;
   opacity: 1;
-  -webkit-transition-duration: 0.25s;
   transition-duration: 0.25s;
 }
 .z-ui-tooltips-out {
@@ -821,14 +816,6 @@ textarea.ui-text-small {
   visibility: visible;
 }
 /* progress */
-@-webkit-keyframes progress-bar-stripes {
-  from {
-    background-position: 40px 0;
-  }
-  to {
-    background-position: 0 0;
-  }
-}
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
@@ -855,67 +842,49 @@ textarea.ui-text-small {
   text-align: center;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #0e90d2;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
-  background-image: -webkit-linear-gradient(top, #149bdf, #0480be);
   background-image: linear-gradient(to bottom, #149bdf, #0480be);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
-  -webkit-transition: width .6s ease;
   transition: width 0.6s ease;
 }
 .ui-progress-striped .bar {
   background-color: #149bdf;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .ui-progress-active .bar {
-  -webkit-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
 .ui-progress .bar-error {
   background-color: #dd514c;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#c43c35));
-  background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
   background-image: linear-gradient(to bottom, #ee5f5b, #c43c35);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffc43c35', GradientType=0);
 }
 .ui-progress-striped .bar-error {
   background-color: #ee5f5b;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .ui-progress .bar-success {
   background-color: #5eb95e;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#57a957));
-  background-image: -webkit-linear-gradient(top, #62c462, #57a957);
   background-image: linear-gradient(to bottom, #62c462, #57a957);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff57a957', GradientType=0);
 }
 .ui-progress-striped .bar-success {
   background-color: #62c462;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .ui-progress .bar-warning {
   background-color: #faa732;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
-  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
   background-image: linear-gradient(to bottom, #fbb450, #f89406);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
 }
 .ui-progress-striped .bar-warning {
   background-color: #fbb450;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .ui-loading {
@@ -1045,14 +1014,11 @@ input.ui-pager-input {
   line-height: 1.428571429;
   color: #333;
   opacity: 0;
-  -webkit-transform: scale(0);
   transform: scale(0);
-  -webkit-transition: -webkit-transform 0.15s ease-in-out, opacity 0.15s ease-in-out;
   transition: transform 0.15s ease-in-out, opacity 0.15s ease-in-out;
 }
 .ui-popup-show .ui-dialog {
   opacity: 1;
-  -webkit-transform: scale(1);
   transform: scale(1);
 }
 .ui-popup-focus .ui-dialog {
@@ -1271,8 +1237,7 @@ input.ui-pager-input {
   height: 0;
   overflow: hidden;
   color: #FF3FFF;
-  -webkit-filter: chroma(color=#FF3FFF);
-          filter: chroma(color=#FF3FFF);
+  filter: chroma(color=#FF3FFF);
   border: 8px dashed transparent;
 }
 .ui-popup-follow .ui-dialog-arrow-a,
@@ -1379,22 +1344,12 @@ input.ui-pager-input {
 .ui-popup-right-bottom .ui-dialog-arrow-b {
   bottom: 15px;
 }
-@-webkit-keyframes ui-dialog-loading {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
 @keyframes ui-dialog-loading {
   0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 .ui-dialog-loading {
@@ -1429,10 +1384,8 @@ input.ui-pager-input {
   box-shadow: 0 -10px 0 1px #ccc, 10px 0px #ccc, 0 10px #ccc, -10px 0 #ccc, -7px -7px 0 0.5px #ccc, 7px -7px 0 1.5px #ccc, 7px 7px #ccc, -7px 7px #ccc;
   -webkit-transform: rotate(360deg);
   -webkit-animation: ui-dialog-loading 1.5s infinite linear;
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-  -webkit-animation: ui-dialog-loading 1.5s infinite linear;
-          animation: ui-dialog-loading 1.5s infinite linear;
+  transform: rotate(360deg);
+  animation: ui-dialog-loading 1.5s infinite linear;
   display: none\9;
 }
 /*自定义样式*/
@@ -2401,8 +2354,7 @@ input.ui-pager-input {
   padding: 0;
   font-size: 12px;
   font-weight: normal;
-  -webkit-transform: translate(0, -2px);
-          transform: translate(0, -2px);
+  transform: translate(0, -2px);
 }
 .ui-datepicker select.ui-datepicker-month,
 .ui-datepicker select.ui-datepicker-year {
@@ -2714,8 +2666,7 @@ input.ui-pager-input {
 /* support: IE8 - See #6727 */
 .ui-slider.ui-state-disabled .ui-slider-handle,
 .ui-slider.ui-state-disabled .ui-slider-range {
-  -webkit-filter: inherit;
-          filter: inherit;
+  filter: inherit;
 }
 .ui-slider-horizontal {
   height: .5em;

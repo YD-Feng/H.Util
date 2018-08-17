@@ -855,8 +855,7 @@
   padding: 0;
   font-size: 12px;
   font-weight: normal;
-  -webkit-transform: translate(0, -2px);
-          transform: translate(0, -2px);
+  transform: translate(0, -2px);
 }
 .ui-datepicker select.ui-datepicker-month,
 .ui-datepicker select.ui-datepicker-year {
@@ -1168,8 +1167,7 @@
 /* support: IE8 - See #6727 */
 .ui-slider.ui-state-disabled .ui-slider-handle,
 .ui-slider.ui-state-disabled .ui-slider-range {
-  -webkit-filter: inherit;
-          filter: inherit;
+  filter: inherit;
 }
 .ui-slider-horizontal {
   height: .5em;
